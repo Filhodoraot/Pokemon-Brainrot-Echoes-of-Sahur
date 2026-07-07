@@ -1,67 +1,62 @@
 PalletTown_Text_OakDontGoOut::
-    .string "OAK: Hey! Wait!\n"
-    .string "Don't go out!$"
+    .string "AVELAR: Hey! Wait!\n"
+    .string "Do not enter the test zone!$"
 
 PalletTown_Text_OakGrassUnsafeNeedMon::
-    .string "OAK: It's unsafe!\n"
-    .string "Wild POKéMON live in tall grass!\p"
-    .string "You need your own POKéMON for\n"
-    .string "your protection.\p"
-    .string "I know!\n"
-    .string "Here, come with me!$"
+    .string "AVELAR: It is unsafe!\n"
+    .string "Wild BRAINROTS live ahead!\p"
+    .string "You need your own BRAINROT\n"
+    .string "for protection.\p"
+    .string "Come with me to the lab.\n"
+    .string "We start now.$"
 
 PalletTown_Text_RaisingMonsToo::
-    .string "I'm raising POKéMON, too.\p"
-    .string "When they get strong, they can\n"
-    .string "protect me.$"
+    .string "I am raising a BRAINROT, too.\p"
+    .string "If it learns to trust me,\n"
+    .string "it may protect me.$"
 
 PalletTown_Text_CanStoreItemsAndMonsInPC::
     .string "Technology is incredible!\p"
-    .string "You can now store and recall items\n"
-    .string "and POKéMON as data via PC.$"
+    .string "COGNIA can store items and\n"
+    .string "BRAINROT data through PCs.$"
 
 PalletTown_Text_OakPokemonResearchLab::
-    .string "OAK POKéMON RESEARCH LAB$"
+    .string "AVELAR BRAINROT LAB$"
 
 PalletTown_Text_PlayersHouse::
-    .string "{PLAYER}'s house$"
+    .string "ROAN's house$"
 
 PalletTown_Text_RivalsHouse::
-    .string "{RIVAL}'s house$"
+    .string "KIUNIN's house$"
 
 PalletTown_Text_TownSign::
-    .string "PALLET TOWN\n"
-    .string "Shades of your journey await!$"
+    .string "TRAINING CENTER 01\n"
+    .string "First gate of the license path$"
 
 PalletTown_Text_OakLetMeSeePokedex::
-    .string "OAK: Ah, {PLAYER}!\n"
-    .string "You're back, are you?\p"
-    .string "How much have you filled in your\n"
-    .string "POKéDEX?\p"
-    .string "May I see it?\p"
-    .string "Let's see…$"
+    .string "AVELAR: Ah, {PLAYER}!\n"
+    .string "You came back.\p"
+    .string "How much has your BRAINDEX\n"
+    .string "recorded?\p"
+    .string "Let me see.$"
 
 PalletTown_Text_CaughtXPuttingInHonestEffort::
-    .string "You've caught {STR_VAR_2}…\p"
-    .string "Hm, it looks as if you're putting\n"
-    .string "in an honest effort.\p"
-    .string "When you manage to fill it some\n"
-    .string "more, come show me, please.$"
+    .string "You have registered {STR_VAR_2}.\p"
+    .string "Good. Your field notes are\n"
+    .string "getting clearer.\p"
+    .string "Keep observing them,\n"
+    .string "but do not copy them.$"
 
 PalletTown_Text_CaughtXImpressiveFollowMe::
-    .string "You've caught… {STR_VAR_2}!?\n"
-    .string "Now, this is impressive!\p"
-    .string "There's something I wanted to ask\n"
-    .string "of you, {PLAYER}.\p"
-    .string "Come.\n"
-    .string "Follow me.$"
+    .string "You registered {STR_VAR_2}!?\p"
+    .string "That signal is not normal.\p"
+    .string "There is something I must\n"
+    .string "ask you, {PLAYER}.\p"
+    .string "Come. Follow me.$"
 
 PalletTown_Text_OakYouEnjoyingTraveling::
-    .string "OAK: Ah, {PLAYER}!\n"
-    .string "You seem to be enjoying traveling.\p"
-    .string "Knowing you, {PLAYER}, I can easily\n"
-    .string "imagine you going out to even more\l"
-    .string "exotic locales.\p"
-    .string "Good for you, good for you.\n"
-    .string "Hohoho.$"
-
+    .string "AVELAR: Ah, {PLAYER}!\n"
+    .string "You are still moving forward.\p"
+    .string "Good. The world gets stranger\n"
+    .string "the farther you go.\p"
+    .string "Keep your mind yours.$"
