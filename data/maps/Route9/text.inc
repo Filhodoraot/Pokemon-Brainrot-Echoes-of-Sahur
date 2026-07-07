@@ -1,82 +1,83 @@
 Route9_Text_AliciaIntro::
-    .string "You have POKéMON with you!\n"
-    .string "You're mine!$"
+    .string "You have BRAINROTS with you!\n"
+    .string "Then let us test battle!$"
 
 Route9_Text_AliciaDefeat::
-    .string "You deceived me…$"
+    .string "You beat my timing...$"
 
 Route9_Text_AliciaPostBattle::
-    .string "The tunnel coming up is pitch-black\n"
-    .string "inside.\p"
-    .string "You'll need FLASH to get through\n"
-    .string "there.$"
+    .string "The tunnel ahead is dark\n"
+    .string "and full of echoes.\p"
+    .string "You will need FLASH.$"
 
 Route9_Text_ChrisIntro::
-    .string "Who's that walking there with those\n"
-    .string "good-looking POKéMON?$"
+    .string "Who is walking there with\n"
+    .string "those sharp-looking BRAINROTS?$"
 
 Route9_Text_ChrisDefeat::
-    .string "Out like a light!$"
+    .string "Lights out for my plan!$"
 
 Route9_Text_ChrisPostBattle::
-    .string "Keep walking!$"
+    .string "Keep walking.\n"
+    .string "ECHO TUNNEL is waiting.$"
 
 Route9_Text_DrewIntro::
-    .string "I'm taking the ROCK TUNNEL to\n"
-    .string "go to LAVENDER…$"
+    .string "I am taking ECHO TUNNEL\n"
+    .string "to reach MEMORY TOWN...$"
 
 Route9_Text_DrewDefeat::
-    .string "Can't measure up…$"
+    .string "Cannot measure up...$"
 
 Route9_Text_DrewPostBattle::
-    .string "Are you off to ROCK TUNNEL, too?$"
+    .string "Are you heading to\n"
+    .string "ECHO TUNNEL too?$"
 
 Route9_Text_CaitlinIntro::
-    .string "Don't you dare patronize me!$"
+    .string "Do not underestimate me!$"
 
 Route9_Text_CaitlinDefeat::
     .string "No!\n"
-    .string "You're too much.$"
+    .string "You are too much.$"
 
 Route9_Text_CaitlinPostBattle::
-    .string "You're obviously talented.\n"
-    .string "Good luck to you!$"
+    .string "You are obviously focused.\n"
+    .string "Good luck in the tunnel.$"
 
 Route9_Text_JeremyIntro::
     .string "Bwahaha!\n"
-    .string "Great! I was bored, eh!$"
+    .string "Great! I was bored!$"
 
 Route9_Text_JeremyDefeat::
-    .string "Keep it coming, eh!\p"
+    .string "Keep it coming!\p"
     .string "Oh wait.\n"
-    .string "I'm out of POKéMON!$"
+    .string "I am out of BRAINROTS!$"
 
 Route9_Text_JeremyPostBattle::
-    .string "You sure had guts standing up to\n"
-    .string "me there, eh?$"
+    .string "You had guts standing up\n"
+    .string "to me there.$"
 
 Route9_Text_BriceIntro::
     .string "Hahaha!\n"
-    .string "Aren't you a little toughie!$"
+    .string "Aren't you a tough candidate!$"
 
 Route9_Text_BriceDefeat::
-    .string "What's that?$"
+    .string "What was that?$"
 
 Route9_Text_BricePostBattle::
     .string "Hahaha!\n"
-    .string "Kids should be tough!$"
+    .string "Candidates should be tough!$"
 
 Route9_Text_BrentIntro::
-    .string "I got up early every day to raise\n"
-    .string "my POKéMON from cocoons!$"
+    .string "I got up early every day\n"
+    .string "to raise cocoon Brainrots!$"
 
 Route9_Text_BrentDefeat::
     .string "WHAT?\p"
-    .string "What a total waste of time!$"
+    .string "What a waste of time!$"
 
 Route9_Text_BrentPostBattle::
-    .string "I have to collect more than bugs\n"
-    .string "to get stronger…$"
+    .string "I need more than bug types\n"
+    .string "to get stronger...$"
 
 Route9_Text_AlanIntro::
     .string "Hahahaha!\n"
@@ -88,19 +89,18 @@ Route9_Text_AlanDefeat::
 
 Route9_Text_AlanPostBattle::
     .string "Hahahaha!\n"
-    .string "Us hearty guys always laugh!$"
+    .string "Steady people laugh loud!$"
 
 Route9_Text_ConnerIntro::
-    .string "Go, my super BUG POKéMON!$"
+    .string "Go, my super bug BRAINROTS!$"
 
 Route9_Text_ConnerDefeat::
-    .string "My bugs…$"
+    .string "My bugs...$"
 
 Route9_Text_ConnerPostBattle::
-    .string "If you don't like BUG POKéMON,\n"
+    .string "If you do not like bug types,\n"
     .string "you bug me!$"
 
 Route9_Text_RouteSign::
-    .string "ROUTE 9\n"
-    .string "CERULEAN CITY - ROCK TUNNEL$"
-
+    .string "TEST ROAD 09\n"
+    .string "LICENSE C CITY - ECHO TUNNEL$"
