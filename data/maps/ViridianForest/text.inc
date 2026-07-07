@@ -1,105 +1,111 @@
 ViridianForest_Text_FriendsItchingToBattle::
-    .string "I came here with some friends to\n"
-    .string "catch us some BUG POKéMON!\p"
-    .string "They're all itching to get into\n"
-    .string "some POKéMON battles!$"
+    .string "This is ZONE GREEN 01.\n"
+    .string "Wild BRAINROTS react to sound.\p"
+    .string "If one repeats your voice,\n"
+    .string "stay calm and move away.$"
 
 ViridianForest_Text_RickIntro::
-    .string "Hey! You have POKéMON!\n"
-    .string "Come on!\l"
-    .string "Let's battle 'em!$"
+    .string "Hey! You have a BRAINROT!\n"
+    .string "Show me your focus!$"
 
 ViridianForest_Text_RickDefeat::
-    .string "No!\nCATERPIE can't hack it!$"
+    .string "No!\n"
+    .string "BAMBINI froze up!$"
 
 ViridianForest_Text_RickPostBattle::
-    .string "Ssh! You'll scare the bugs away.\n"
-    .string "Another time, okay?$"
+    .string "The forest used to be normal.\p"
+    .string "Then the sounds came.\n"
+    .string "Tung... tung...$"
 
 ViridianForest_Text_DougIntro::
-    .string "Yo!\n"
-    .string "You can't jam out if you're a\l"
-    .string "POKéMON TRAINER!$"
+    .string "You hear it too, right?\n"
+    .string "That knock in the trees?$"
 
 ViridianForest_Text_DougDefeat::
     .string "Huh?\n"
-    .string "I ran out of POKéMON!$"
+    .string "The sound stopped.$"
 
 ViridianForest_Text_DougPostBattle::
-    .string "That totally stinks! I'm going to\n"
-    .string "catch some stronger ones!$"
+    .string "People once feared these woods.\p"
+    .string "Now everyone acts like\n"
+    .string "they were always normal.$"
 
 ViridianForest_Text_SammyIntro::
-    .string "Hey, wait up!\n"
-    .string "What's the hurry? Why the rush?$"
+    .string "Wait!\n"
+    .string "Do not rush in this forest!$"
 
 ViridianForest_Text_SammyDefeat::
-    .string "I give!\n"
-    .string "You're good at this!$"
+    .string "You kept focus...\n"
+    .string "That is rare.$"
 
 ViridianForest_Text_SammyPostBattle::
-    .string "Sometimes, you can find stuff on\n"
-    .string "the ground.\p"
-    .string "I'm looking for the stuff I\n"
-    .string "dropped. Can you help me?$"
+    .string "I found a wood shard here.\p"
+    .string "When I touched it, I forgot\n"
+    .string "why I came here.$"
 
 ViridianForest_Text_AnthonyIntro::
-    .string "I might be little, but I won't like\n"
-    .string "it if you go easy on me!$"
+    .string "Small BRAINROTS can still\n"
+    .string "shake your focus!$"
 
 ViridianForest_Text_AnthonyDefeat::
-    .string "Oh, boo.\n"
-    .string "Nothing went right.$"
+    .string "My head feels noisy...$"
 
 ViridianForest_Text_AnthonyPostBattle::
-    .string "I lost some of my allowance…$"
+    .string "A man in a green mask told me:\p"
+    .string "Thinking gets loud.\n"
+    .string "Repeating feels safe.$"
 
 ViridianForest_Text_CharlieIntro::
-    .string "Did you know that POKéMON evolve?$"
+    .string "Did you know BRAINROTS evolve?\p"
+    .string "Some grow.\n"
+    .string "Some change when watched.$"
 
 ViridianForest_Text_CharlieDefeat::
     .string "Oh!\n"
-    .string "I lost!$"
+    .string "My LIRILI lost!$"
 
 ViridianForest_Text_CharliePostBattle::
-    .string "BUG POKéMON evolve quickly.\n"
-    .string "They're a lot of fun!$"
+    .string "BAMBINI and LIRILI grow fast.\p"
+    .string "But BRRBRR is rare.\n"
+    .string "It appears when trees knock.$"
 
 ViridianForest_Text_RanOutOfPokeBalls::
-    .string "I was throwing POKé BALLS to\n"
-    .string "catch POKéMON, and I ran out.\p"
-    .string "That's why you can never have too\n"
-    .string "many POKé BALLS.$"
+    .string "I threw all my BRAINROT BALLS.\p"
+    .string "One NOOBINI copied my voice\n"
+    .string "and distracted me.$"
 
 ViridianForest_Text_AvoidGrassyAreasWhenWeak::
     .string "TRAINER TIPS\p"
-    .string "If your POKéMON are weak and you\n"
-    .string "want to avoid battles, stay away\l"
-    .string "from grassy areas!$"
+    .string "If your mind feels noisy,\n"
+    .string "leave the grass.\p"
+    .string "Weak teams attract wild\n"
+    .string "BRAINROTS.$"
 
 ViridianForest_Text_UseAntidoteForPoison::
-    .string "For poison, use ANTIDOTE!\n"
-    .string "Get it at POKéMON MARTS!$"
+    .string "For poison, use ANTIDOTE!\p"
+    .string "LIRILI stings are small,\n"
+    .string "but still annoying.$"
 
 ViridianForest_Text_ContactOakViaPCToRatePokedex::
-    .string "TRAINER TIPS\p"
-    .string "Contact PROF. OAK via a PC to\n"
-    .string "get your POKéDEX evaluated!$"
+    .string "COGNIA NOTICE\p"
+    .string "Report strange sounds,\n"
+    .string "memory gaps, or repeated words.\p"
+    .string "Stay calm.$"
 
 ViridianForest_Text_CantCatchOwnedMons::
     .string "TRAINER TIPS\p"
-    .string "You can't catch a POKéMON that\n"
-    .string "belongs to someone else.\p"
-    .string "Throw POKé BALLS only at wild\n"
-    .string "POKéMON to catch them!$"
+    .string "You cannot catch a BRAINROT\n"
+    .string "that belongs to someone else.\p"
+    .string "Throw BALLS only at wild\n"
+    .string "BRAINROTS.$"
 
 ViridianForest_Text_WeakenMonsBeforeCapture::
     .string "TRAINER TIPS\p"
-    .string "Weaken POKéMON before attempting\n"
-    .string "capture!\p"
-    .string "When healthy, they may escape!$"
+    .string "Weaken BRAINROTS before\n"
+    .string "capture.\p"
+    .string "A calm target breaks fewer\n"
+    .string "BALLS.$"
 
 ViridianForest_Text_LeavingViridianForest::
-    .string "LEAVING VIRIDIAN FOREST\n"
-    .string "PEWTER CITY AHEAD$"
-
+    .string "LEAVING ZONE GREEN 01\n"
+    .string "LICENSE D CITY AHEAD$"
