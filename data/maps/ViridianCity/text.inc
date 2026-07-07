@@ -1,125 +1,111 @@
 ViridianCity_Text_CanCarryMonsAnywhere::
-    .string "Those POKé BALLS at your waist!\n"
-    .string "You have POKéMON, don't you?\p"
-    .string "It's great that you can carry and\n"
-    .string "use POKéMON anytime, anywhere.$"
+    .string "Those BALLS at your waist!\n"
+    .string "You have BRAINROTS, do you not?\p"
+    .string "In SAFE ZONES, registered\n"
+    .string "partners are allowed.$"
 
 ViridianCity_Text_GymClosedWonderWhoLeaderIs::
-    .string "This POKéMON GYM is always closed.\p"
-    .string "I wonder who the LEADER is?$"
+    .string "The LICENSE HALL is closed.\p"
+    .string "Only ranked candidates may\n"
+    .string "enter later.$"
 
 ViridianCity_Text_ViridiansGymLeaderReturned::
-    .string "VIRIDIAN GYM's LEADER returned!$"
+    .string "The LICENSE HALL opened again!$"
 
 ViridianCity_Text_WantToKnowAboutCaterpillarMons::
-    .string "You want to know about the two\n"
-    .string "kinds of caterpillar POKéMON?$"
+    .string "Want to know about forest\n"
+    .string "BRAINROTS?$"
 
 ViridianCity_Text_OhOkayThen::
     .string "Oh, okay then!$"
 
 ViridianCity_Text_ExplainCaterpieWeedle::
-    .string "CATERPIE has no poison,\n"
-    .string "but WEEDLE does.\p"
-    .string "Watch that your POKéMON aren't\n"
-    .string "stabbed by WEEDLE's POISON STING.$"
+    .string "BAMBINI can slow you down.\n"
+    .string "LIRILI can poison you.\p"
+    .string "If BRRBRR appears, stay calm.\n"
+    .string "It reacts to panic.$"
 
 ViridianCity_Text_GrandpaHasntHadCoffeeYet::
     .string "Oh, Grandpa!\n"
-    .string "Don't be so mean!\p"
-    .string "I'm so sorry.\n"
-    .string "He hasn't had his coffee yet.$"
+    .string "Do not block candidates!\p"
+    .string "Sorry. His morning routine\n"
+    .string "got interrupted.$"
 
 ViridianCity_Text_GoShoppingInPewterOccasionally::
-    .string "I go shopping in PEWTER CITY\n"
+    .string "I go to LICENSE D CITY\n"
     .string "occasionally.\p"
-    .string "I have to take the winding trail in\n"
-    .string "VIRIDIAN FOREST when I go.$"
+    .string "To get there, I cross\n"
+    .string "ZONE GREEN 01.$"
 
 ViridianCity_Text_ThisIsPrivateProperty::
-    .string "I absolutely forbid you from\n"
-    .string "going through here!\p"
-    .string "This is private property!$"
+    .string "I cannot let you pass yet!\p"
+    .string "SAFE ZONE rules.\n"
+    .string "No unready candidates.$"
 
 ViridianCity_Text_ShowYouHowToCatchMons::
-    .string "Well, now, I've had my coffee, and\n"
-    .string "that's what I need to get going!\p"
-    .string "Hm?\n"
-    .string "What is that red box you have?\p"
-    .string "Ah, so you're working on your\n"
-    .string "POKéDEX.\p"
-    .string "Then let me give you a word of\n"
-    .string "advice.\p"
-    .string "Whenever you catch a POKéMON,\n"
-    .string "the POKéDEX automatically updates\l"
-    .string "its data.\p"
-    .string "…You don't know how to catch\n"
-    .string "a POKéMON?\p"
-    .string "I suppose I had better show you\n"
-    .string "then!$"
+    .string "Well now, I am ready!\p"
+    .string "You carry a BRAINDEX, yes?\p"
+    .string "Then listen.\n"
+    .string "When you catch a BRAINROT,\l"
+    .string "the data updates.\p"
+    .string "You do not know how to catch\n"
+    .string "one yet?\p"
+    .string "I will show you.$"
 
 ViridianCity_Text_ThatWasEducationalTakeThis::
-    .string "There! Now tell me, that was\n"
-    .string "educational, was it not?\p"
-    .string "And here, take this, too.$"
+    .string "There! A clean capture\n"
+    .string "needs patience.\p"
+    .string "Take this too.$"
 
 ViridianCity_Text_WatchThatToLearnBasics::
-    .string "If there's something you don't\n"
-    .string "understand, watch that.\p"
-    .string "It will teach you about the basics\n"
-    .string "of being a POKéMON TRAINER.$"
+    .string "If you do not understand\n"
+    .string "the basics, watch that.\p"
+    .string "It teaches candidate rules\n"
+    .string "for BRAINROT handling.$"
 
 ViridianCity_Text_WeakenMonsFirstToCatch::
-    .string "Well, now, I've had my coffee, and\n"
-    .string "that's what I need to get going!\p"
-    .string "But I made it too strong.\n"
-    .string "It gave me a headache…\p"
-    .string "Incidentally, are you filling your\n"
-    .string "POKéDEX?\p"
-    .string "At first, focus on weakening the\n"
-    .string "POKéMON before trying to catch it.$"
+    .string "Well now, I am ready!\p"
+    .string "At first, weaken the\n"
+    .string "BRAINROT before capture.\p"
+    .string "A calm target is safer.$"
 
 ViridianCity_Text_HowsTeachyTVHelping::
-    .string "Well, now, I've had my coffee, and\n"
-    .string "that's what I need to get going!\p"
-    .string "But I made it too strong.\n"
-    .string "It gave me a headache…\p"
-    .string "Incidentally, is my old TEACHY TV\n"
-    .string "helping you?$"
+    .string "Is my old TEACHY TV\n"
+    .string "helping you?\p"
+    .string "It is old, but the rules\n"
+    .string "are still useful.$"
 
 ViridianCity_Text_MyGrandsonOnTheShow::
     .string "Wahaha!\n"
-    .string "It's my grandson on the show!\p"
-    .string "Since he's the one doing the\n"
-    .string "teaching, you're bound to learn.$"
+    .string "That is my grandson on the show!\p"
+    .string "He teaches the safe way\n"
+    .string "to handle BRAINROTS.$"
 
 ViridianCity_Text_TooBusyForTeachyTV::
-    .string "Hm… You're too busy to not even\n"
-    .string "have the time for TEACHY TV…\p"
-    .string "Time is money, and neither should\n"
-    .string "be ill spent…$"
+    .string "Too busy for training?\p"
+    .string "That is how candidates\n"
+    .string "make messy mistakes.$"
 
 ViridianCity_Text_CitySign::
-    .string "VIRIDIAN CITY \n"
-    .string "The Eternally Green Paradise$"
+    .string "SAFE ZONE 01\n"
+    .string "Registered candidate shelter$"
 
 ViridianCity_Text_CatchMonsForEasierBattles::
     .string "TRAINER TIPS\p"
-    .string "Catch POKéMON and expand your\n"
-    .string "collection.\p"
-    .string "The more you have, the easier it\n"
-    .string "is to battle.$"
+    .string "Catch BRAINROTS and expand\n"
+    .string "your field options.\p"
+    .string "More partners means more\n"
+    .string "ways to survive tests.$"
 
 ViridianCity_Text_MovesLimitedByPP::
     .string "TRAINER TIPS\p"
-    .string "The battle moves of POKéMON are\n"
-    .string "limited by their POWER POINTS, PP.\p"
-    .string "To replenish PP, rest your tired\n"
-    .string "POKéMON at a POKéMON CENTER.$"
+    .string "Moves are limited by PP.\p"
+    .string "Rest tired BRAINROTS at\n"
+    .string "a healing center.$"
 
 ViridianCity_Text_GymSign::
-    .string "VIRIDIAN CITY POKéMON GYM$"
+    .string "SAFE ZONE 01 LICENSE HALL$"
 
 ViridianCity_Text_GymDoorsAreLocked::
-    .string "VIRIDIAN GYM's doors are locked…$"
-
+    .string "The LICENSE HALL doors\n"
+    .string "are locked...$"
