@@ -1,0 +1,52 @@
+name: Brainrot Playtest Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'tools/**'
+      - 'src/**'
+      - 'data/**'
+      - 'graphics/**'
+      - 'sound/**'
+      - 'Makefile'
+      - 'make_tools.mk'
+      - 'config.mk'
+      - '.github/workflows/brainrot-playtest.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential \
+            binutils-arm-none-eabi \
+            gcc-arm-none-eabi \
+            libpng-dev \
+            pkg-config \
+            python3 \
+            make
+
+      - name: Apply Brainrot test patches
+        run: |
+          python3 tools/apply_brainrot_test_build.py
+          python3 tools/patch_brainrot_trainers.py
+
+      - name: Build modern GBA ROM
+        run: make firered_modern
+
+      - name: Upload playtest ROM
+        uses: actions/upload-artifact@v4
+        with:
+          name: brainrot-playtest-gba
+          path: pokefirered_modern.gba
+          if-no-files-found: error
