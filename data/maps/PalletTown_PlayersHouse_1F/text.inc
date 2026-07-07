@@ -1,38 +1,42 @@
 PalletTown_PlayersHouse_1F_Text_AllBoysLeaveOakLookingForYou::
-    .string "MOM: …Right.\n"
-    .string "All boys leave home someday.\l"
-    .string "It said so on TV.\p"
-    .string "Oh, yes. PROF. OAK, next door, was\n"
-    .string "looking for you.$"
+    .string "MOM: ...Right.\n"
+    .string "You are going to Avelar's lab.\p"
+    .string "I still do not understand why\n"
+    .string "you keep asking about Luna.\p"
+    .string "But I know that look.\n"
+    .string "You will not stop.$"
 
 PalletTown_PlayersHouse_1F_Text_AllGirlsLeaveOakLookingForYou::
-    .string "MOM: …Right.\n"
-    .string "All girls dream of traveling.\l"
-    .string "It said so on TV.\p"
-    .string "Oh, yes. PROF. OAK, next door, was\n"
-    .string "looking for you.$"
+    .string "MOM: ...Right.\n"
+    .string "You are going to Avelar's lab.\p"
+    .string "I still do not understand why\n"
+    .string "you keep asking about Luna.\p"
+    .string "But I know that look.\n"
+    .string "You will not stop.$"
 
 PalletTown_PlayersHouse_1F_Text_YouShouldTakeQuickRest::
     .string "MOM: {PLAYER}!\n"
-    .string "You should take a quick rest.$"
+    .string "Rest for a moment.\p"
+    .string "No one thinks clearly\n"
+    .string "while exhausted.$"
 
 PalletTown_PlayersHouse_1F_Text_LookingGreatTakeCare::
-    .string "MOM: Oh, good! You and your\n"
-    .string "POKéMON are looking great.\l"
-    .string "Take care now!$"
+    .string "MOM: You and your BRAINROT\n"
+    .string "look steady.\p"
+    .string "Take care now.\n"
+    .string "And... come back.$"
 
 PalletTown_PlayersHouse_1F_Text_MovieOnTVFourBoysOnRailroad::
-    .string "There's a movie on TV.\n"
-    .string "Four boys are walking on railroad\l"
-    .string "tracks.\p"
-    .string "…I better go, too.$"
+    .string "There is a report on TV.\p"
+    .string "COGNIA says BRAINROTS are\n"
+    .string "part of normal life.\p"
+    .string "...That feels too clean.$"
 
 PalletTown_PlayersHouse_1F_Text_MovieOnTVGirlOnBrickRoad::
-    .string "There's a movie on TV.\n"
-    .string "A girl with her hair in pigtails is\l"
-    .string "walking up a brick road.\p"
-    .string "…I better go, too.$"
+    .string "There is a report on TV.\p"
+    .string "COGNIA says memory gaps\n"
+    .string "are only stress.\p"
+    .string "...That feels too clean.$"
 
 PalletTown_PlayersHouse_1F_Text_OopsWrongSide::
-    .string "Oops, wrong side…$"
-
+    .string "Oops, wrong side...$"
