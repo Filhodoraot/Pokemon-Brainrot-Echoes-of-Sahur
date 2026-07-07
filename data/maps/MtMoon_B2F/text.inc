@@ -1,84 +1,82 @@
 MtMoon_B2F_Text_MiguelIntro::
     .string "Hey, stop!\p"
-    .string "I found these fossils!\n"
-    .string "They're both mine!$"
+    .string "I found these fragments!\n"
+    .string "They are both mine!$"
 
 MtMoon_B2F_Text_MiguelDefeat::
     .string "Okay!\n"
-    .string "I'll share!$"
+    .string "We can share!$"
 
 MtMoon_B2F_Text_WellEachTakeAFossil::
-    .string "We'll each take a fossil!\n"
+    .string "We will each take one fragment!\n"
     .string "No being greedy!$"
 
 MtMoon_B2F_Text_ThenThisFossilIsMine::
     .string "All right.\n"
-    .string "Then this fossil is mine!$"
+    .string "Then this one is mine!$"
 
 MtMoon_B2F_Text_LabOnCinnabarRegeneratesFossils::
-    .string "Far away, on CINNABAR ISLAND,\n"
-    .string "there's a POKéMON LAB.\p"
-    .string "They do research on regenerating\n"
-    .string "fossils.$"
+    .string "Far away, on EXPERIMENT ISLAND,\n"
+    .string "there is a COGNIA LAB.\p"
+    .string "They study ancient fragments\n"
+    .string "and old BRAINROT signals.$"
 
 MtMoon_B2F_Text_Grunt1Intro::
-    .string "We, TEAM ROCKET, shall find the\n"
-    .string "fossils!\p"
-    .string "Reviving POKéMON from them will\n"
-    .string "earn us huge riches!$"
+    .string "We of the ECHO MASKS will\n"
+    .string "collect these fragments!\p"
+    .string "Old signals are worth\n"
+    .string "more than money.$"
 
 MtMoon_B2F_Text_Grunt1Defeat::
     .string "Urgh!\n"
-    .string "Now I'm mad!$"
+    .string "Now I am annoyed!$"
 
 MtMoon_B2F_Text_Grunt1PostBattle::
-    .string "You made me mad!\n"
-    .string "TEAM ROCKET will blacklist you!$"
+    .string "You interrupted our work.\n"
+    .string "The First Sound remembers that.$"
 
 MtMoon_B2F_Text_Grunt2Intro::
-    .string "We, TEAM ROCKET, are POKéMON\n"
-    .string "gangsters!\l"
-    .string "We strike fear with our strength!$"
+    .string "We are the ECHO MASKS.\l"
+    .string "We follow the first rhythm.$"
 
 MtMoon_B2F_Text_Grunt2Defeat::
-    .string "I blew it!$"
+    .string "I messed up!$"
 
 MtMoon_B2F_Text_Grunt2PostBattle::
-    .string "Darn it all!\n"
-    .string "My associates won't stand for this!$"
+    .string "The others will not like this.\n"
+    .string "The cave carries every word.$"
 
 MtMoon_B2F_Text_Grunt3Intro::
-    .string "We're pulling a big job here!\n"
-    .string "Get lost, kid!$"
+    .string "We are doing important work here!\n"
+    .string "Leave, candidate!$"
 
 MtMoon_B2F_Text_Grunt3Defeat::
-    .string "So, you are good…$"
+    .string "So, you are good...$"
 
 MtMoon_B2F_Text_Grunt3PostBattle::
-    .string "If you find a fossil, give it to me\n"
-    .string "and scram!$"
+    .string "If you find a fragment,\n"
+    .string "hand it over and move on.$"
 
 MtMoon_B2F_Text_Grunt4Intro::
-    .string "Little kids shouldn't be messing\n"
-    .string "around with grown-ups!\p"
-    .string "It could be bad news!$"
+    .string "New candidates should not\n"
+    .string "touch old cave signals.\p"
+    .string "They echo back.$"
 
 MtMoon_B2F_Text_Grunt4Defeat::
-    .string "I'm steamed!$"
+    .string "I am done!$"
 
 MtMoon_B2F_Text_Grunt4PostBattle::
-    .string "POKéMON lived here long before\n"
-    .string "people came.$"
+    .string "These BRAINROTS were here\n"
+    .string "before people named them.$"
 
 MtMoon_B2F_Text_YouWantDomeFossil::
-    .string "Do you want the DOME FOSSIL?$"
+    .string "Do you want the DOME FRAGMENT?$"
 
 MtMoon_B2F_Text_YouWantHelixFossil::
-    .string "Do you want the HELIX FOSSIL?$"
+    .string "Do you want the HELIX FRAGMENT?$"
 
 MtMoon_B2F_Text_ObtainedHelixFossil::
-    .string "Obtained the HELIX FOSSIL!$"
+    .string "Obtained the HELIX FRAGMENT!$"
 
 MtMoon_B2F_Text_ObtainedDomeFossil::
-    .string "Obtained the DOME FOSSIL!$"
-
+    .string "Obtained the DOME FRAGMENT!$"
