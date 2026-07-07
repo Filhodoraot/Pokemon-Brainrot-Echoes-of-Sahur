@@ -1,7 +1,6 @@
 Route2_Text_RouteSign::
-    .string "ROUTE 2\n"
-    .string "VIRIDIAN CITY - PEWTER CITY$"
+    .string "TEST ROAD 02\n"
+    .string "SAFE ZONE 01 - LICENSE D CITY$"
 
 Route2_Text_DiglettsCave::
-    .string "DIGLETT'S CAVE$"
-
+    .string "ECHO TUNNEL ENTRANCE$"
