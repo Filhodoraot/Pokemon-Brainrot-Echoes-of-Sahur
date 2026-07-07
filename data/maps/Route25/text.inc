@@ -1,36 +1,35 @@
 Route25_Text_JoeyIntro::
-    .string "Local TRAINERS come here to\n"
-    .string "practice.$"
+    .string "Local candidates come here\n"
+    .string "to practice.$"
 
 Route25_Text_JoeyDefeat::
-    .string "You're decent.$"
+    .string "You are decent.$"
 
 Route25_Text_JoeyPostBattle::
-    .string "All POKéMON have weaknesses.\n"
-    .string "Even the strongest ones.\p"
-    .string "That's why it's best to raise\n"
-    .string "POKéMON of different types.$"
+    .string "All BRAINROTS have weaknesses.\p"
+    .string "That is why different types\n"
+    .string "matter.$"
 
 Route25_Text_DanIntro::
-    .string "Dad took me to a great party on\n"
-    .string "the S.S. ANNE at VERMILION CITY.$"
+    .string "Dad took me to a big ship\n"
+    .string "at SOUND PORT.$"
 
 Route25_Text_DanDefeat::
-    .string "I'm not mad!$"
+    .string "I am not mad!$"
 
 Route25_Text_DanPostBattle::
-    .string "On the S.S. ANNE, I saw TRAINERS\n"
+    .string "On the ship, I saw candidates\n"
     .string "from around the world.$"
 
 Route25_Text_FlintIntro::
-    .string "I'm a cool guy.\n"
-    .string "I've got a girlfriend!$"
+    .string "I am cool.\n"
+    .string "I have a girlfriend!$"
 
 Route25_Text_FlintDefeat::
-    .string "Aww, darn…$"
+    .string "Aww, darn...$"
 
 Route25_Text_FlintPostBattle::
-    .string "Oh, well.\n"
+    .string "Oh well.\n"
     .string "My girlfriend will cheer me up.$"
 
 Route25_Text_KelseyIntro::
@@ -38,82 +37,78 @@ Route25_Text_KelseyIntro::
     .string "My boyfriend is cool!$"
 
 Route25_Text_KelseyDefeat::
-    .string "My conditioning isn't the best…$"
+    .string "My conditioning is not best...$"
 
 Route25_Text_KelseyPostBattle::
-    .string "I wish my boyfriend was as good\n"
-    .string "as you.$"
+    .string "I wish my boyfriend battled\n"
+    .string "as well as you.$"
 
 Route25_Text_ChadIntro::
-    .string "I had this feeling…\n"
-    .string "I knew I had to battle you!$"
+    .string "I had this feeling...\n"
+    .string "I knew we had to battle!$"
 
 Route25_Text_ChadDefeat::
-    .string "I knew I'd lose, too!$"
+    .string "I knew I would lose too!$"
 
 Route25_Text_ChadPostBattle::
-    .string "If your POKéMON gets confused,\n"
-    .string "switch it out.\p"
-    .string "That's a good tactic.$"
+    .string "If your BRAINROT gets confused,\n"
+    .string "switching can help.$"
 
 Route25_Text_HaleyIntro::
-    .string "My friend has many cute POKéMON.\n"
-    .string "I'm so jealous!$"
+    .string "My friend has many cute\n"
+    .string "BRAINROTS. I am jealous!$"
 
 Route25_Text_HaleyDefeat::
-    .string "I'm not so jealous!$"
+    .string "I am not so jealous now!$"
 
 Route25_Text_HaleyPostBattle::
-    .string "You came from MT. MOON?\n"
-    .string "May I have a CLEFAIRY?$"
+    .string "You came from MOON NOISE CAVE?\n"
+    .string "Did you see rare ones?$"
 
 Route25_Text_FranklinIntro::
-    .string "I just got down from MT. MOON,\n"
-    .string "but I've still got gas in the tank!$"
+    .string "I just came from\n"
+    .string "MOON NOISE CAVE,\n"
+    .string "but I still have energy!$"
 
 Route25_Text_FranklinDefeat::
     .string "You worked hard!$"
 
 Route25_Text_FranklinPostBattle::
-    .string "Drat!\n"
-    .string "A ZUBAT bit me back in that cave.$"
+    .string "A cave BRAINROT startled me\n"
+    .string "back there.$"
 
 Route25_Text_NobIntro::
-    .string "I'm off to see a POKéMANIAC's\n"
-    .string "collection at the cape.$"
+    .string "I am going to see a collector's\n"
+    .string "BRAINROT data at the cape.$"
 
 Route25_Text_NobDefeat::
-    .string "You done got me, and real good,\n"
-    .string "too!$"
+    .string "You got me, real good!$"
 
 Route25_Text_NobPostBattle::
-    .string "The POKéMANIAC sure lives up to\n"
-    .string "his name.\p"
-    .string "His collection includes many rare\n"
-    .string "species of POKéMON.$"
+    .string "That collector has rare\n"
+    .string "BRAINROT records.$"
 
 Route25_Text_WayneIntro::
-    .string "You're going to see BILL?\n"
+    .string "You are going to see BILL?\n"
     .string "First, we battle!$"
 
 Route25_Text_WayneDefeat::
-    .string "You're something.$"
+    .string "You are something.$"
 
 Route25_Text_WaynePostBattle::
-    .string "The trail below is a shortcut to\n"
-    .string "CERULEAN CITY.$"
+    .string "The trail below is a shortcut\n"
+    .string "to LICENSE C CITY.$"
 
 Route25_Text_SeaCottageSign::
     .string "SEA COTTAGE\n"
-    .string "BILL lives here!$"
+    .string "BILL records BRAINROT data here!$"
 
 Route25_Text_MistyHighHopesAboutThisPlace::
-    .string "This cape is a famous date spot.\p"
-    .string "MISTY, the GYM LEADER, has high\n"
-    .string "hopes about this place.$"
+    .string "This cape is a famous quiet spot.\p"
+    .string "License C students come here\n"
+    .string "to clear their heads.$"
 
 Route25_Text_AreYouHereAlone::
     .string "Hello, are you here alone?\p"
-    .string "If you're out at CERULEAN's cape…\n"
-    .string "Well, it should be as a couple.$"
-
+    .string "The cape is calmer with\n"
+    .string "someone you trust.$"
