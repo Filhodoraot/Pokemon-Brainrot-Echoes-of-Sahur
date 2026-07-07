@@ -1,6 +1,6 @@
 Route18_Text_WiltonIntro::
-    .string "I always check every grassy area\n"
-    .string "for new POKéMON.$"
+    .string "I check every grass patch\n"
+    .string "for new BRAINROTS.$"
 
 Route18_Text_WiltonDefeat::
     .string "Tch!$"
@@ -10,31 +10,30 @@ Route18_Text_WiltonPostBattle::
 
 Route18_Text_RamiroIntro::
     .string "Kurukkoo!\n"
-    .string "How do you like my birdcall?$"
+    .string "How is my birdcall?$"
 
 Route18_Text_RamiroDefeat::
     .string "I had to bug you!$"
 
 Route18_Text_RamiroPostBattle::
-    .string "I collect sea POKéMON on weekends\n"
-    .string "because the sea is so close.$"
+    .string "I collect sea BRAINROTS\n"
+    .string "on weekends.$"
 
 Route18_Text_JacobIntro::
-    .string "This is my turf!\n"
-    .string "Get out of here!$"
+    .string "This is my route!\n"
+    .string "Let us battle!$"
 
 Route18_Text_JacobDefeat::
     .string "Darn!$"
 
 Route18_Text_JacobPostBattle::
-    .string "This is my fave area for catching\n"
-    .string "POKéMON.$"
+    .string "This is my favorite area\n"
+    .string "for catching BRAINROTS.$"
 
 Route18_Text_RouteSign::
-    .string "ROUTE 18\n"
-    .string "CELADON CITY - FUCHSIA CITY$"
+    .string "WILD RESERVE ROAD 18\n"
+    .string "SKIBIDY CITY - WILD RESERVE CITY$"
 
 Route18_Text_CyclingRoadSign::
-    .string "CYCLING ROAD\n"
+    .string "SKIBIDY SLOPE ROAD\n"
     .string "No pedestrians permitted!$"
-
