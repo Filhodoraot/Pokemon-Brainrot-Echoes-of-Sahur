@@ -1,62 +1,58 @@
 PewterCity_Museum_1F_Text_Its50YForChildsTicket::
     .string "Yes, yes.\n"
-    .string "It's ¥50 for a child's ticket.\p"
-    .string "Would you like to come in?$"
+    .string "Entry to the COGNIA ARCHIVE\l"
+    .string "is ¥50 for candidates.\p"
+    .string "Would you like to enter?$"
 
 PewterCity_Museum_1F_Text_ComeAgain::
     .string "Come again!$"
 
 PewterCity_Museum_1F_Text_Right50YThankYou::
     .string "Right, ¥50!\n"
-    .string "Thank you!$"
+    .string "Thank you.$"
 
 PewterCity_Museum_1F_Text_DontHaveEnoughMoney::
-    .string "You don't have enough money.$"
+    .string "You do not have enough money.$"
 
 PewterCity_Museum_1F_Text_PleaseEnjoyYourself::
-    .string "Please enjoy yourself.$"
+    .string "Please review the old data\n"
+    .string "carefully.$"
 
 PewterCity_Museum_1F_Text_DoYouKnowWhatAmberIs::
-    .string "You can't sneak in the back way!\n"
-    .string "Nice try, kid, but no.\p"
-    .string "Oh, whatever!\n"
+    .string "You cannot sneak in the back way!\n"
+    .string "Nice try, candidate.\p"
+    .string "Anyway...\n"
     .string "Do you know what AMBER is?$"
 
 PewterCity_Museum_1F_Text_AmberContainsGeneticMatter::
-    .string "AMBER contains the genetic matter\n"
-    .string "of ancient POKéMON.\p"
-    .string "There's a LAB somewhere trying to\n"
-    .string "resurrect POKéMON from AMBER.$"
+    .string "AMBER can hold traces\n"
+    .string "of ancient life.\p"
+    .string "Some COGNIA labs study\n"
+    .string "old BRAINROT signals in it.$"
 
 PewterCity_Museum_1F_Text_AmberIsFossilizedSap::
-    .string "AMBER is actually sap, that gooey\n"
-    .string "stuff that oozes from trees.\p"
-    .string "The ancient sap fossilized over\n"
-    .string "time to become rock-hard AMBER.$"
+    .string "AMBER is fossilized tree sap.\p"
+    .string "Strange how trees remember\n"
+    .string "what people forget.$"
 
-@ Unused
 PewterCity_Museum_1F_Text_PleaseGoAround::
-    .string "あちらへ　おまわりください$"
+    .string "Please go around.$"
 
 PewterCity_Museum_1F_Text_ShouldBeGratefulForLongLife::
-    .string "I should be grateful for my long\n"
-    .string "life.\p"
-    .string "Never did I think I would get to\n"
-    .string "see the bones of a dragon!$"
+    .string "I should be grateful for\n"
+    .string "my long life.\p"
+    .string "I never thought I would see\n"
+    .string "records this old.$"
 
 PewterCity_Museum_1F_Text_WantYouToGetAmberExamined::
-    .string "Ssh! Listen, I need to share a\n"
-    .string "secret with someone.\p"
-    .string "I think that this chunk of AMBER\n"
-    .string "contains POKéMON DNA!\p"
-    .string "It would be a shattering scientific\n"
-    .string "breakthrough if POKéMON could be\l"
-    .string "resurrected from it.\p"
-    .string "But, my colleagues just ignore\n"
-    .string "what I have to say.\p"
-    .string "So, I have a favor to ask!\p"
-    .string "I want you to get this examined at\n"
-    .string "a POKéMON LAB somewhere.$"
+    .string "Ssh! I need to share\n"
+    .string "a secret.\p"
+    .string "This chunk of AMBER has\n"
+    .string "a strange signal.\p"
+    .string "My colleagues ignore it,\n"
+    .string "but I know it matters.\p"
+    .string "Please get this examined\n"
+    .string "at a real lab someday.$"
 
 PewterCity_Museum_1F_Text_ReceivedOldAmberFromMan::
     .string "{PLAYER} received the OLD AMBER\n"
@@ -67,21 +63,21 @@ PewterCity_Museum_1F_Text_GetOldAmberChecked::
     .string "Get the OLD AMBER checked!$"
 
 PewterCity_Museum_1F_Text_DontHaveSpaceForThis::
-    .string "You don't have space for this.$"
+    .string "You do not have space for this.$"
 
 PewterCity_Museum_1F_Text_WeHaveTwoFossilsOnExhibit::
-    .string "We have two fossils of rare,\n"
-    .string "prehistoric POKéMON on exhibit.$"
+    .string "We have old fossils and\n"
+    .string "pre-Brainrot records on exhibit.$"
 
 PewterCity_Museum_1F_Text_BeautifulPieceOfAmber::
-    .string "There is a beautiful piece of\n"
-    .string "AMBER in a clear gold color.$"
+    .string "There is a clear gold piece\n"
+    .string "of AMBER.\p"
+    .string "It feels warmer than stone.$"
 
 PewterCity_Museum_1F_Text_AerodactylFossil::
     .string "AERODACTYL Fossil\n"
-    .string "A primitive and rare POKéMON.$"
+    .string "A primitive life record.$"
 
 PewterCity_Museum_1F_Text_KabutopsFossil::
     .string "KABUTOPS Fossil\n"
-    .string "A primitive and rare POKéMON.$"
-
+    .string "A primitive life record.$"
