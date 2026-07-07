@@ -1,25 +1,25 @@
 Route19_Text_RichardIntro::
-    .string "I have to exercise and warm up\n"
-    .string "before going out for a swim.$"
+    .string "I warm up before swimming\n"
+    .string "through sea signals.$"
 
 Route19_Text_RichardDefeat::
     .string "All warmed up!$"
 
 Route19_Text_RichardPostBattle::
-    .string "Thanks, kid!\n"
-    .string "I'm ready for a swim.$"
+    .string "Thanks, candidate!\n"
+    .string "I am ready for the waves.$"
 
 Route19_Text_ReeceIntro::
     .string "Wait! Slow down!\n"
-    .string "You'll have a heart attack!$"
+    .string "The sea current is rough!$"
 
 Route19_Text_ReeceDefeat::
     .string "Ooh!\n"
-    .string "That's chilly!$"
+    .string "That is chilly!$"
 
 Route19_Text_ReecePostBattle::
-    .string "Watch out for TENTACOOL.\n"
-    .string "They sting so painfully.$"
+    .string "Watch out for sea BRAINROTS.\n"
+    .string "Some sting badly.$"
 
 Route19_Text_MatthewIntro::
     .string "I love swimming!\n"
@@ -29,126 +29,120 @@ Route19_Text_MatthewDefeat::
     .string "Belly flop!$"
 
 Route19_Text_MatthewPostBattle::
-    .string "I can beat even marine POKéMON\n"
-    .string "at swimming.$"
+    .string "I can even race marine\n"
+    .string "BRAINROTS.$"
 
 Route19_Text_DouglasIntro::
-    .string "What's beyond the horizon?$"
+    .string "What is beyond the horizon?$"
 
 Route19_Text_DouglasDefeat::
     .string "Glub!$"
 
 Route19_Text_DouglasPostBattle::
-    .string "I see a couple of islands over\n"
-    .string "yonder!$"
+    .string "I see frozen islands\n"
+    .string "far away!$"
 
 Route19_Text_DavidIntro::
-    .string "I tried diving for POKéMON, but it\n"
-    .string "was a no-go.$"
+    .string "I tried diving for BRAINROTS,\n"
+    .string "but no luck.$"
 
 Route19_Text_DavidDefeat::
     .string "Help!$"
 
 Route19_Text_DavidPostBattle::
-    .string "I guess you have to fish for sea\n"
-    .string "POKéMON.$"
+    .string "Maybe fishing works better\n"
+    .string "for sea BRAINROTS.$"
 
 Route19_Text_TonyIntro::
-    .string "I look at the sea to forget all\n"
-    .string "the bad things that happened.$"
+    .string "I look at the sea to\n"
+    .string "quiet my thoughts.$"
 
 Route19_Text_TonyDefeat::
     .string "Ooh!\n"
-    .string "Traumatic!$"
+    .string "Too intense!$"
 
 Route19_Text_TonyPostBattle::
-    .string "I'm looking at the sea to forget\n"
-    .string "the bad thing that happened!$"
+    .string "The sea makes memory feel\n"
+    .string "far away.$"
 
 Route19_Text_AnyaIntro::
-    .string "Oh, I just love your ride!\n"
-    .string "Can I have it if I win?$"
+    .string "Oh, I love your ride!\n"
+    .string "Can I try it if I win?$"
 
 Route19_Text_AnyaDefeat::
     .string "Oh! I lost!$"
 
 Route19_Text_AnyaPostBattle::
-    .string "It's still a long way to go to\n"
-    .string "SEAFOAM ISLANDS…\p"
-    .string "I want to go back to FUCHSIA…$"
+    .string "It is still far to\n"
+    .string "FROST ECHO ISLANDS...\p"
+    .string "I want to go back.$"
 
 Route19_Text_AliceIntro::
-    .string "Swimming's great!\n"
-    .string "Sunburns aren't!$"
+    .string "Swimming is great!\n"
+    .string "Sunburns are not!$"
 
 Route19_Text_AliceDefeat::
     .string "Shocker!$"
 
 Route19_Text_AlicePostBattle::
-    .string "My boyfriend wanted to swim to\n"
-    .string "SEAFOAM ISLANDS.$"
+    .string "My boyfriend wanted to swim\n"
+    .string "to FROST ECHO ISLANDS.$"
 
 Route19_Text_AxleIntro::
-    .string "Ahoy, there!\n"
-    .string "These waters are treacherous!$"
+    .string "Ahoy!\n"
+    .string "These waters are tricky!$"
 
 Route19_Text_AxleDefeat::
     .string "Ooh!\n"
     .string "Dangerous!$"
 
 Route19_Text_AxlePostBattle::
-    .string "M-my legs! They cramped up!\n"
-    .string "Glub, glub…$"
+    .string "My legs cramped up!\n"
+    .string "Glub, glub...$"
 
 Route19_Text_ConnieIntro::
-    .string "I swam here with my friends…\n"
-    .string "I'm tired…$"
+    .string "I swam here with friends...\n"
+    .string "I am tired...$"
 
 Route19_Text_ConnieDefeat::
-    .string "I'm exhausted…$"
+    .string "I am exhausted...$"
 
 Route19_Text_ConniePostBattle::
-    .string "If I were to ride a POKéMON on\n"
-    .string "the sea, I'd like a LAPRAS.\p"
-    .string "LAPRAS is so big, I bet it\n"
-    .string "would keep me dry on water.$"
+    .string "If I ride a sea BRAINROT,\n"
+    .string "I want a big steady one.$"
 
 Route19_Text_RouteSign::
-    .string "SEA ROUTE 19\n"
-    .string "FUCHSIA CITY - SEAFOAM ISLANDS$"
+    .string "SEA TEST ROAD 19\n"
+    .string "WILD RESERVE CITY - FROST ECHO ISLANDS$"
 
 Route19_Text_LiaIntro::
-    .string "LIA: I'm looking after my brother.\n"
-    .string "He just became a TRAINER.$"
+    .string "LIA: I am watching my brother.\n"
+    .string "He just became a candidate.$"
 
 Route19_Text_LiaDefeat::
-    .string "LIA: That's no way to treat my\n"
-    .string "little brother!$"
+    .string "LIA: That is no way to\n"
+    .string "treat my little brother!$"
 
 Route19_Text_LiaPostBattle::
     .string "LIA: Do you have a younger\n"
-    .string "brother?\p"
-    .string "I hope you're teaching him all\n"
-    .string "sorts of things.$"
+    .string "brother? Teach him well.$"
 
 Route19_Text_LiaNotEnoughMons::
-    .string "LIA: I want to battle together\n"
-    .string "with my little brother.\p"
-    .string "Don't you have two POKéMON?$"
+    .string "LIA: We battle together.\p"
+    .string "Bring two BRAINROTS.$"
 
 Route19_Text_LucIntro::
-    .string "LUC: My big sis taught me how\n"
-    .string "to swim and train POKéMON.$"
+    .string "LUC: Sis taught me to swim\n"
+    .string "and handle BRAINROTS.$"
 
 Route19_Text_LucDefeat::
-    .string "LUC: Oh, wow!\n"
-    .string "Someone tougher than my big sis!$"
+    .string "LUC: Wow!\n"
+    .string "Stronger than my big sis!$"
 
 Route19_Text_LucPostBattle::
-    .string "LUC: My big sis is strong and nice.\n"
-    .string "I think she's awesome!$"
+    .string "LUC: My big sis is strong\n"
+    .string "and nice.$"
 
 Route19_Text_LucNotEnoughMons::
-    .string "LUC: I don't want to if I can't\n"
-    .string "battle you with my big sis.\p"
-    .string "Don't you have two POKéMON?$"
+    .string "LUC: I only battle with sis.\p"
+    .string "Bring two BRAINROTS.$"
