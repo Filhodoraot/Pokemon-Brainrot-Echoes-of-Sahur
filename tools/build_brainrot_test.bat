@@ -6,6 +6,9 @@ cd /d "%~dp0\.."
 python tools\apply_brainrot_test_build.py
 if errorlevel 1 goto error
 
+python tools\patch_brainrot_trainers.py
+if errorlevel 1 goto error
+
 make
 if errorlevel 1 goto error
 
