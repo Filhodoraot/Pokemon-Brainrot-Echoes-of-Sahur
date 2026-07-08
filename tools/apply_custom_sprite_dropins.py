@@ -4,12 +4,15 @@
 This lets the project accept new Roan and Brainrot sprites without manually
 hunting every destination path.
 
-Accepted layouts:
+Recommended layout:
 
     custom_sprites/brainrots/noobini/front.png
+
+But the script also auto-detects nested or renamed upload folders, like:
+
     custom_sprites/custom_sprites/brainrots/noobini/front.png
     BrainrotImages/brainrots/noobini/front.png
-    BrainrotImages/custom_sprites/brainrots/noobini/front.png
+    anything_else/brainrots/noobini/front.png
 
 Missing files are skipped, so the playtest can still build while art is WIP.
 """
@@ -21,20 +24,36 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-# Any of these roots can contain brainrots/ or roan/.
-CUSTOM_CANDIDATES = (
-    ROOT / "custom_sprites",
-    ROOT / "custom_sprites" / "custom_sprites",
-    ROOT / "BrainrotImages",
-    ROOT / "BrainrotImages" / "custom_sprites",
-)
+# Do not scan heavy/source folders when looking for uploaded art folders.
+SKIP_DIRS = {
+    ".git",
+    ".github",
+    "agbcc",
+    "asm",
+    "build",
+    "charmap.txt",
+    "constants",
+    "data",
+    "docs",
+    "graphics",
+    "include",
+    "sound",
+    "src",
+    "sym_bss.txt",
+    "sym_common.txt",
+    "tools",
+}
+
+
+def normalize_name(name: str) -> str:
+    """Normalize folder names so Noobini, noobini, noobini_front all match better."""
+    lowered = name.lower()
+    return "".join(ch for ch in lowered if ch.isalnum())
 
 
 def copy_if_exists(src: Path, dst: Path, copied_dests: set[Path]) -> bool:
     if not src.exists():
         return False
-    # If the same destination was already filled by a higher-priority root,
-    # do not overwrite it with a duplicate from another extracted folder.
     if dst in copied_dests:
         print(f"skipped duplicate {src.relative_to(ROOT)} -> {dst.relative_to(ROOT)}")
         return False
@@ -58,7 +77,7 @@ ROAN_FILES = {
     "roan/player_reflection.pal": "graphics/object_events/palettes/player_reflection.pal",
 }
 
-# Brainrot name -> original Pokemon graphics folder.
+# Brainrot folder name -> original Pokemon graphics folder.
 BRAINROT_FOLDERS = {
     # Starters
     "chimpanzi": "bulbasaur",
@@ -101,20 +120,50 @@ BRAINROT_FOLDERS = {
     "sleeprot": "snorlax",
 }
 
+NORMALIZED_BRAINROT_FOLDERS = {
+    normalize_name(name): folder for name, folder in BRAINROT_FOLDERS.items()
+}
+
 SPRITE_KINDS = ("front.png", "back.png", "icon.png", "normal.pal", "shiny.pal")
 
 
-def existing_custom_roots() -> list[Path]:
-    roots: list[Path] = []
-    for root in CUSTOM_CANDIDATES:
-        if (root / "brainrots").exists() or (root / "roan").exists():
-            roots.append(root)
-    return roots
+def should_skip_dir(path: Path) -> bool:
+    return path.name in SKIP_DIRS or path.name.startswith(".")
+
+
+def discover_named_dirs(target_name: str) -> list[Path]:
+    """Find dirs named target_name, without walking source/build folders."""
+    found: list[Path] = []
+    stack = [p for p in ROOT.iterdir() if p.is_dir() and not should_skip_dir(p)]
+
+    while stack:
+        current = stack.pop()
+        if current.name == target_name:
+            found.append(current)
+            # Do not need to scan inside brainrots/roan dirs.
+            continue
+        try:
+            children = list(current.iterdir())
+        except OSError:
+            continue
+        for child in children:
+            if child.is_dir() and not should_skip_dir(child):
+                stack.append(child)
+    return sorted(found, key=lambda p: len(p.parts))
+
+
+def discover_roan_roots() -> list[Path]:
+    return [path.parent for path in discover_named_dirs("roan")]
+
+
+def discover_brainrots_dirs() -> list[Path]:
+    return discover_named_dirs("brainrots")
 
 
 def apply_roan(copied_dests: set[Path]) -> int:
     copied = 0
-    for custom_root in existing_custom_roots():
+    roan_roots = discover_roan_roots()
+    for custom_root in roan_roots:
         for src_rel, dst_rel in ROAN_FILES.items():
             if copy_if_exists(custom_root / src_rel, ROOT / dst_rel, copied_dests):
                 copied += 1
@@ -123,31 +172,47 @@ def apply_roan(copied_dests: set[Path]) -> int:
 
 def apply_brainrots(copied_dests: set[Path]) -> int:
     copied = 0
-    for custom_root in existing_custom_roots():
-        for brainrot, folder in BRAINROT_FOLDERS.items():
+    brainrots_dirs = discover_brainrots_dirs()
+
+    for brainrots_dir in brainrots_dirs:
+        for brainrot_dir in sorted(p for p in brainrots_dir.iterdir() if p.is_dir()):
+            key = normalize_name(brainrot_dir.name)
+            pokemon_folder = NORMALIZED_BRAINROT_FOLDERS.get(key)
+            if pokemon_folder is None:
+                print(f"skipped unknown brainrot folder: {brainrot_dir.relative_to(ROOT)}")
+                continue
+
             for filename in SPRITE_KINDS:
-                src = custom_root / "brainrots" / brainrot / filename
-                dst = ROOT / "graphics" / "pokemon" / folder / filename
+                src = brainrot_dir / filename
+                dst = ROOT / "graphics" / "pokemon" / pokemon_folder / filename
                 if copy_if_exists(src, dst, copied_dests):
                     copied += 1
+
     return copied
 
 
 def main() -> None:
-    roots = existing_custom_roots()
-    if not roots:
-        print("No custom sprite drop-in roots found; vanilla/placeholder graphics remain.")
-        print("Expected one of these layouts:")
-        for root in CUSTOM_CANDIDATES:
-            print(f"  - {root.relative_to(ROOT)}/brainrots/<name>/front.png")
+    brainrots_dirs = discover_brainrots_dirs()
+    roan_roots = discover_roan_roots()
+
+    if not brainrots_dirs and not roan_roots:
+        print("No custom sprite drop-in folders found; vanilla/placeholder graphics remain.")
+        print("Expected a folder like: custom_sprites/brainrots/<name>/front.png")
         return
 
-    print("Sprite drop-in roots:")
-    for root in roots:
-        print(f"  - {root.relative_to(ROOT)}")
+    if brainrots_dirs:
+        print("Brainrot sprite folders found:")
+        for path in brainrots_dirs:
+            print(f"  - {path.relative_to(ROOT)}")
+
+    if roan_roots:
+        print("Roan sprite roots found:")
+        for path in roan_roots:
+            print(f"  - {path.relative_to(ROOT)}")
 
     copied_dests: set[Path] = set()
     copied = apply_roan(copied_dests) + apply_brainrots(copied_dests)
+
     if copied == 0:
         print("No custom sprite drop-in files matched known Brainrot slots yet.")
     else:
