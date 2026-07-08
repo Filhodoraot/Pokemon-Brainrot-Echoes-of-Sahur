@@ -224,3 +224,13 @@ gOakSpeech_Text_YourRivalsNameWhatWasIt::
 gOakSpeech_Text_ConfirmRivalName::
     .string "So his name is {RIVAL}.\p"
     .string "Good. The record is awake.$"
+
+gOakSpeech_Text_RememberRivalsName::
+    .string "Remember that name.\p"
+    .string "Names are anchors when the\n"
+    .string "noise tries to rewrite people.$"
+
+gOakSpeech_Text_LetsGo::
+    .string "The record is open now.\p"
+    .string "ROAN, follow the memory.\n"
+    .string "Find LUNA.$"
