@@ -5,10 +5,8 @@ This keeps the normal FireRed type engine, but gives the early Brainrot
 species explicit type identities instead of relying only on their original
 Pokemon slots.
 
-Adding brand-new type slots is much riskier because it touches the battle UI,
-type chart, move data, text graphics, and save-facing data. For the playable
-build, we reuse the existing type chart and make each Brainrot feel correct
-through type combinations.
+This patch is intentionally safe: if a species block or type line is not found,
+it prints a warning and keeps building instead of breaking the playtest.
 """
 
 from __future__ import annotations
@@ -31,23 +29,28 @@ def write(path: str, text: str) -> None:
     p(path).write_text(text, encoding="utf-8")
 
 
-def find_species_block(text: str, species: str) -> tuple[int, int, str]:
+def find_species_block(text: str, species: str) -> tuple[int, int, str] | None:
     start = text.find(f"    [{species}] =")
     if start == -1:
-        raise RuntimeError(f"species info not found: {species}")
+        print(f"warning: species info not found, skipping {species}")
+        return None
     end = text.find("    },", start)
     if end == -1:
-        raise RuntimeError(f"species info end not found: {species}")
+        print(f"warning: species info end not found, skipping {species}")
+        return None
     end += len("    },")
     return start, end, text[start:end]
 
 
-def patch_types(block: str, type1: str, type2: str) -> str:
-    new_line = f".types = {{{type1}, {type2}}}"
-    block, count = re.subn(r"\.types\s*=\s*\{TYPE_[A-Z_]+,\s*TYPE_[A-Z_]+\}", new_line, block, count=1)
+def patch_types(block: str, type1: str, type2: str) -> str | None:
+    # Keep the original indentation. Only replace the two type constants.
+    pattern = r"(\.types\s*=\s*\{)\s*TYPE_[A-Z_]+\s*,\s*TYPE_[A-Z_]+\s*(\}\s*,?)"
+    repl = rf"\g<1>{type1}, {type2}\2"
+    patched, count = re.subn(pattern, repl, block, count=1)
     if count != 1:
-        raise RuntimeError("type field not found in species block")
-    return block
+        print("warning: type field not found in species block, skipping one entry")
+        return None
+    return patched
 
 
 def main() -> None:
@@ -96,12 +99,20 @@ def main() -> None:
         "SPECIES_SNORLAX": ("TYPE_NORMAL", "TYPE_PSYCHIC"),        # SLEEPROT
     }
 
+    patched_count = 0
     for species, (type1, type2) in type_map.items():
-        start, end, block = find_species_block(text, species)
-        text = text[:start] + patch_types(block, type1, type2) + text[end:]
+        found = find_species_block(text, species)
+        if found is None:
+            continue
+        start, end, block = found
+        patched = patch_types(block, type1, type2)
+        if patched is None:
+            continue
+        text = text[:start] + patched + text[end:]
+        patched_count += 1
 
     write(path, text)
-    print("Brainrot phase 1 type identities applied.")
+    print(f"Brainrot phase 1 type identities applied: {patched_count} species patched.")
 
 
 if __name__ == "__main__":
