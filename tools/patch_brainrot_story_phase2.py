@@ -201,8 +201,8 @@ def patch_training_center_town_text() -> None:
 def patch_roan_palette_best_effort() -> None:
     """Try to darken Red/Roan colors without failing the build.
 
-    The exact player palette path differs between FireRed forks, so this scans
-    likely .pal files and replaces bright red rows with darker Roan colors.
+    This no longer turns Red's clothes blue. It swaps the bright red outfit
+    into dark neutral hoodie colors: charcoal, black, and soft gray.
     """
     likely_names = ("red", "boy", "player", "hero", "brendan")
     changed = []
@@ -216,17 +216,18 @@ def patch_roan_palette_best_effort() -> None:
             continue
         original = text
         # Common JASC palette red ranges used by Red's hat/shirt.
+        # Use dark neutral shades instead of blue.
         swaps = {
-            "248 0 0": "32 48 88",
-            "240 0 0": "32 48 88",
-            "224 0 0": "40 56 104",
-            "216 0 0": "40 56 104",
-            "200 0 0": "24 32 64",
-            "192 0 0": "24 32 64",
-            "248 64 64": "64 96 160",
-            "240 64 64": "64 96 160",
-            "248 120 120": "104 144 216",
-            "240 120 120": "104 144 216",
+            "248 0 0": "40 40 44",
+            "240 0 0": "40 40 44",
+            "224 0 0": "32 32 36",
+            "216 0 0": "32 32 36",
+            "200 0 0": "24 24 28",
+            "192 0 0": "24 24 28",
+            "248 64 64": "72 72 76",
+            "240 64 64": "72 72 76",
+            "248 120 120": "112 112 116",
+            "240 120 120": "112 112 116",
         }
         for old, new in swaps.items():
             text = text.replace(old, new)
@@ -234,7 +235,7 @@ def patch_roan_palette_best_effort() -> None:
             pal.write_text(text, encoding="utf-8")
             changed.append(pal.as_posix())
     if changed:
-        print("Roan palette recolor applied to:")
+        print("Roan dark neutral palette recolor applied to:")
         for path in changed:
             print(f"  - {path}")
     else:
