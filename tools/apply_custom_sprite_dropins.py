@@ -4,16 +4,14 @@
 This lets the project accept new Roan and Brainrot sprites without manually
 hunting every destination path.
 
-Put files under custom_sprites/ and run this script before make.
-Missing files are skipped, so the playtest can still build while art is WIP.
-
 Accepted layouts:
 
     custom_sprites/brainrots/noobini/front.png
-
-or, if a ZIP was extracted with an extra folder layer:
-
     custom_sprites/custom_sprites/brainrots/noobini/front.png
+    BrainrotImages/brainrots/noobini/front.png
+    BrainrotImages/custom_sprites/brainrots/noobini/front.png
+
+Missing files are skipped, so the playtest can still build while art is WIP.
 """
 
 from __future__ import annotations
@@ -22,18 +20,27 @@ import shutil
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-CUSTOM = ROOT / "custom_sprites"
+
+# Any of these roots can contain brainrots/ or roan/.
 CUSTOM_CANDIDATES = (
-    CUSTOM,
-    CUSTOM / "custom_sprites",
+    ROOT / "custom_sprites",
+    ROOT / "custom_sprites" / "custom_sprites",
+    ROOT / "BrainrotImages",
+    ROOT / "BrainrotImages" / "custom_sprites",
 )
 
 
-def copy_if_exists(src: Path, dst: Path) -> bool:
+def copy_if_exists(src: Path, dst: Path, copied_dests: set[Path]) -> bool:
     if not src.exists():
+        return False
+    # If the same destination was already filled by a higher-priority root,
+    # do not overwrite it with a duplicate from another extracted folder.
+    if dst in copied_dests:
+        print(f"skipped duplicate {src.relative_to(ROOT)} -> {dst.relative_to(ROOT)}")
         return False
     dst.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(src, dst)
+    copied_dests.add(dst)
     print(f"copied {src.relative_to(ROOT)} -> {dst.relative_to(ROOT)}")
     return True
 
@@ -98,26 +105,30 @@ SPRITE_KINDS = ("front.png", "back.png", "icon.png", "normal.pal", "shiny.pal")
 
 
 def existing_custom_roots() -> list[Path]:
-    return [root for root in CUSTOM_CANDIDATES if root.exists()]
+    roots: list[Path] = []
+    for root in CUSTOM_CANDIDATES:
+        if (root / "brainrots").exists() or (root / "roan").exists():
+            roots.append(root)
+    return roots
 
 
-def apply_roan() -> int:
+def apply_roan(copied_dests: set[Path]) -> int:
     copied = 0
     for custom_root in existing_custom_roots():
         for src_rel, dst_rel in ROAN_FILES.items():
-            if copy_if_exists(custom_root / src_rel, ROOT / dst_rel):
+            if copy_if_exists(custom_root / src_rel, ROOT / dst_rel, copied_dests):
                 copied += 1
     return copied
 
 
-def apply_brainrots() -> int:
+def apply_brainrots(copied_dests: set[Path]) -> int:
     copied = 0
     for custom_root in existing_custom_roots():
         for brainrot, folder in BRAINROT_FOLDERS.items():
             for filename in SPRITE_KINDS:
                 src = custom_root / "brainrots" / brainrot / filename
                 dst = ROOT / "graphics" / "pokemon" / folder / filename
-                if copy_if_exists(src, dst):
+                if copy_if_exists(src, dst, copied_dests):
                     copied += 1
     return copied
 
@@ -125,16 +136,20 @@ def apply_brainrots() -> int:
 def main() -> None:
     roots = existing_custom_roots()
     if not roots:
-        print("custom_sprites folder not found; skipping custom sprite drop-ins.")
+        print("No custom sprite drop-in roots found; vanilla/placeholder graphics remain.")
+        print("Expected one of these layouts:")
+        for root in CUSTOM_CANDIDATES:
+            print(f"  - {root.relative_to(ROOT)}/brainrots/<name>/front.png")
         return
 
     print("Sprite drop-in roots:")
     for root in roots:
         print(f"  - {root.relative_to(ROOT)}")
 
-    copied = apply_roan() + apply_brainrots()
+    copied_dests: set[Path] = set()
+    copied = apply_roan(copied_dests) + apply_brainrots(copied_dests)
     if copied == 0:
-        print("No custom sprite drop-ins found yet; vanilla/placeholder graphics remain.")
+        print("No custom sprite drop-in files matched known Brainrot slots yet.")
     else:
         print(f"Applied {copied} custom sprite drop-in file(s).")
 
