@@ -2,34 +2,34 @@ gOtherText_NewName::
     .string "NEW NAME$"
 
 gNameChoice_Green::
-    .string "GREEN$"
+    .string "KIUNIN$"
 
 gNameChoice_Red::
-    .string "RED$"
+    .string "ROAN$"
 
 gNameChoice_Leaf::
-    .string "LEAF$"
+    .string "LUNA$"
 
 gNameChoice_Fire::
-    .string "FIRE$"
+    .string "SAHUR$"
 
 gNameChoice_Gary::
-    .string "GARY$"
+    .string "KIUNIN$"
 
 gNameChoice_Kaz::
-    .string "KAZ$"
+    .string "DANTE$"
 
 gNameChoice_Toru::
-    .string "TORU$"
+    .string "AVELAR$"
 
 gNameChoice_Ash::
-    .string "ASH$"
+    .string "ROAN$"
 
 gNameChoice_Kene::
-    .string "KENE$"
+    .string "RENAN$"
 
 gNameChoice_Geki::
-    .string "GEKI$"
+    .string "NOISE$"
 
 gNameChoice_Jak::
     .string "JAK$"
@@ -125,119 +125,154 @@ gNameChoice_Suzi::
     .string "SUZI$"
 
 gControlsGuide_Text_Intro::
-    .string "The various buttons will be explained in\n"
-    .string "the order of their importance.$"
+    .string "Use the buttons to move, talk,
+"
+    .string "choose, and read the story.$"
 
 gControlsGuide_Text_DPad::
-    .string "Moves the main character.\n"
-    .string "Also used to choose various data\n"
-    .string "headings.$"
+    .string "Moves ROAN.
+"
+    .string "Also moves the cursor in menus.$"
 
 gControlsGuide_Text_AButton::
-    .string "Used to confirm a choice, check\n"
-    .string "things, chat, and scroll text.$"
+    .string "Confirms choices, talks to people,
+"
+    .string "checks objects, and advances text.$"
 
 gControlsGuide_Text_BButton::
-    .string "Used to exit, cancel a choice,\n"
-    .string "and cancel a mode.$"
+    .string "Cancels choices.
+"
+    .string "Hold it while moving to run later.$"
 
 gControlsGuide_Text_StartButton::
-    .string "Press this button to open the\n"
-    .string "MENU.$"
+    .string "Opens the MENU.
+"
+    .string "Save often. The noise returns.$"
 
 gControlsGuide_Text_SelectButton::
-    .string "Used to shift items and to use\n"
-    .string "a registered item.$"
+    .string "Uses registered tools.
+"
+    .string "Field gear will matter later.$"
 
 gControlsGuide_Text_LRButtons::
-    .string "If you need help playing the\n"
-    .string "game, or on how to do things,\n"
-    .string "press the L or R Button.$"
+    .string "Press L or R for HELP.
+"
+    .string "COGNIA calls it safe advice.$"
 
 gOakSpeech_Text_AskPlayerGender::
-    .string "Now tell me. Are you a boy?\n"
-    .string "Or are you a girl?$"
+    .string "Before the record continues...
+"
+    .string "which file is yours?$"
 
 gPikachuIntro_Text_Page1::
-    .string "In the world which you are about to\n"
-    .string "enter, you will embark on a grand\n"
-    .string "adventure with you as the hero.\n"
-    .string "\n"
-    .string "Speak to people and check things\n"
-    .string "wherever you go, be it towns, roads,\n"
-    .string "or caves. Gather information and\n"
-    .string "hints from every source.$"
+    .string "Ten years ago, a hospital room
+"
+    .string "filled with children repeating the
+"
+    .string "same words.
+"
+    .string "
+"
+    .string "TUNG TUNG TUNG SAHUR.
+"
+    .string "TUNG TUNG TUNG SAHUR.$"
 
 gPikachuIntro_Text_Page2::
-    .string "New paths will open to you by helping\n"
-    .string "people in need, overcoming challenges,\n"
-    .string "and solving mysteries.\n"
-    .string "\n"
-    .string "At times, you will be challenged by\n"
-    .string "others and attacked by wild creatures.\n"
-    .string "Be brave and keep pushing on.$"
+    .string "The words became a signal.
+"
+    .string "The signal became a shape.
+"
+    .string "
+"
+    .string "Something huge woke up inside
+"
+    .string "Kanto's thoughts.
+"
+    .string "Then the hospital vanished in
+"
+    .string "white light.$"
 
 gPikachuIntro_Text_Page3::
-    .string "Through your adventure, we hope\n"
-    .string "that you will interact with all sorts\n"
-    .string "of people and achieve personal growth.\n"
-    .string "That is our biggest objective.\n"
-    .string "\n"
-    .string "Press the A Button, and let your\n"
-    .string "adventure begin!$"
+    .string "A girl named LUNA disappeared.
+"
+    .string "After that night, almost everyone
+"
+    .string "forgot she existed.
+"
+    .string "
+"
+    .string "Only one boy remembered.
+"
+    .string "His name was ROAN.$"
 
 gOakSpeech_Text_WelcomeToTheWorld::
-    .string "Hello, there!\n"
-    .string "Glad to meet you!\p"
-    .string "Welcome to the world of POKéMON!\p"
-    .string "My name is OAK.\p"
-    .string "People affectionately refer to me\n"
-    .string "as the POKéMON PROFESSOR.\p$"
+    .string "AVELAR: This is not a welcome.\p"
+    .string "This is a recovered memory.\p"
+    .string "If you are reading it, the Sahur
+"
+    .string "noise failed to erase you.\p$"
 
 gOakSpeech_Text_ThisWorld::
-    .string "This world…$"
+    .string "Kanto changed.$"
 
 gOakSpeech_Text_IsInhabitedFarAndWide::
-    .string "…is inhabited far and wide by\n"
-    .string "creatures called POKéMON.\p$"
+    .string "After the first echo, creatures
+"
+    .string "called BRAINROTS appeared
+"
+    .string "across the region.\p$"
 
 gOakSpeech_Text_IStudyPokemon::
-    .string "For some people, POKéMON are pets.\n"
-    .string "Others use them for battling.\p"
-    .string "As for myself…\p"
-    .string "I study POKéMON as a profession.\p$"
+    .string "Some people train them.
+"
+    .string "Some people fear them.\p"
+    .string "COGNIA says they are normal.\p"
+    .string "I study what COGNIA hides.\p$"
 
 gOakSpeech_Text_TellMeALittleAboutYourself::
-    .string "But first, tell me a little about\n"
-    .string "yourself.\p$"
+    .string "Before we continue, the record
+"
+    .string "needs to know who resisted.\p$"
 
 gOakSpeech_Text_YourNameWhatIsIt::
-    .string "Let's begin with your name.\n"
-    .string "What is it?\p$"
+    .string "State your name.
+"
+    .string "Hold on to it.\p$"
 
 gOakSpeech_Text_SoYourNameIsPlayer::
-    .string "Right…\n"
-    .string "So your name is {PLAYER}.$"
+    .string "Right...
+"
+    .string "Your name is {PLAYER}.$"
 
 gOakSpeech_Text_WhatWasHisName::
-    .string "This is my grandson.\p"
-    .string "He's been your rival since you both\n"
-    .string "were babies.\p"
-    .string "…Erm, what was his name now?$"
+    .string "This boy is KIUNIN.\p"
+    .string "He is loud, proud, and always
+"
+    .string "trying to outrun fear.\p"
+    .string "But the noise around him is
+"
+    .string "stronger than he knows.\p"
+    .string "What name did the record keep?$"
 
 gOakSpeech_Text_YourRivalsNameWhatWasIt::
-    .string "Your rival's name, what was it now?$"
+    .string "What was his name in this file?$"
 
 gOakSpeech_Text_ConfirmRivalName::
-    .string "…Er, was it {RIVAL}?$"
+    .string "...Was it {RIVAL}?$"
 
 gOakSpeech_Text_RememberRivalsName::
-    .string "That's right! I remember now!\n"
-    .string "His name is {RIVAL}!\p$"
+    .string "Yes. {RIVAL}.
+"
+    .string "Remember that name too.\p$"
 
 gOakSpeech_Text_LetsGo::
     .string "{PLAYER}!\p"
-    .string "Your very own POKéMON legend is\n"
-    .string "about to unfold!\p"
-    .string "A world of dreams and adventures\n"
-    .string "with POKéMON awaits! Let's go!$"
+    .string "You are about to wake up ten
+"
+    .string "years after the white flash.\p"
+    .string "Your parents will say LUNA never
+"
+    .string "existed.\p"
+    .string "Do not believe the quiet.
+"
+    .string "Follow the echo.$
