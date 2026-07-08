@@ -86,7 +86,12 @@ def patch_training_center_script() -> None:
 \tspecial SetUnlockedPokedexFlags
 \tsetvar VAR_MAP_SCENE_POKEMON_CENTER_TEALA, 1
 \tmsgbox PalletTown_ProfessorOaksLab_Text_OakCatchMonsForDataTakeThese
-\tgiveitem_msg PalletTown_ProfessorOaksLab_Text_ReceivedFivePokeBalls, ITEM_POKE_BALL, 5
+\tadditem ITEM_POKE_BALL, 5
+\tsetflag FLAG_GOT_POKEBALLS_FROM_OAK_AFTER_22_RIVAL
+\tplayfanfare MUS_OBTAIN_ITEM
+\tmessage PalletTown_ProfessorOaksLab_Text_ReceivedFivePokeBalls
+\twaitmessage
+\twaitfanfare
 \tmsgbox PalletTown_ProfessorOaksLab_Text_AvelarLicenseMission
 \tsetvar VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 6
 \tsetvar VAR_MAP_SCENE_VIRIDIAN_CITY_MART, 2
