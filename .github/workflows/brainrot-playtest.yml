@@ -40,6 +40,7 @@ jobs:
         run: |
           python3 tools/apply_brainrot_test_build.py
           python3 tools/patch_brainrot_trainers.py
+          python3 tools/patch_brainrot_story_phase2.py
 
       - name: Build modern GBA ROM
         run: make firered_modern
