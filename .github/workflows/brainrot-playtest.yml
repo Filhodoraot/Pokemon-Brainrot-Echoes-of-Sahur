@@ -54,6 +54,7 @@ jobs:
           python3 tools/patch_brainrot_story_phase4.py
           python3 tools/patch_brainrot_story_phase5.py
           python3 tools/patch_brainrot_story_phase6.py
+          python3 tools/sanitize_asm_string_newlines.py
           python3 tools/apply_custom_sprite_dropins.py || echo "Optional custom sprite drop-ins failed; continuing with available graphics."
 
       - name: Build modern GBA ROM
