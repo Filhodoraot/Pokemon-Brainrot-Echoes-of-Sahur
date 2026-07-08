@@ -41,6 +41,7 @@ jobs:
             libpng-dev \
             pkg-config \
             python3 \
+            python3-pil \
             make
 
       - name: Apply Brainrot test patches
@@ -49,16 +50,21 @@ jobs:
           python3 tools/patch_brainrot_starters_first_forms.py
           python3 tools/patch_brainrot_types_phase1.py
           python3 tools/patch_brainrot_trainers.py
+          python3 tools/replace_vanilla_pokemon_with_brainrots.py
           python3 tools/patch_brainrot_story_phase2.py
           python3 tools/patch_brainrot_starters_first_forms.py
+          python3 tools/patch_safe_item_messages.py
           python3 tools/patch_brainrot_story_phase3.py
           python3 tools/patch_brainrot_intro_species.py
           python3 tools/patch_brainrot_story_phase4.py
           python3 tools/patch_brainrot_story_phase5.py
           python3 tools/patch_brainrot_story_phase6.py
           python3 tools/patch_brainrot_starters_first_forms.py
+          python3 tools/replace_vanilla_pokemon_with_brainrots.py
+          python3 tools/patch_safe_item_messages.py
           python3 tools/sanitize_asm_string_newlines.py
           python3 tools/apply_custom_sprite_dropins.py || echo "Optional custom sprite drop-ins failed; continuing with available graphics."
+          python3 tools/sanitize_brainrot_sprite_sizes.py
 
       - name: Build modern GBA ROM
         run: make firered_modern
