@@ -6,6 +6,14 @@ hunting every destination path.
 
 Put files under custom_sprites/ and run this script before make.
 Missing files are skipped, so the playtest can still build while art is WIP.
+
+Accepted layouts:
+
+    custom_sprites/brainrots/noobini/front.png
+
+or, if a ZIP was extracted with an extra folder layer:
+
+    custom_sprites/custom_sprites/brainrots/noobini/front.png
 """
 
 from __future__ import annotations
@@ -15,6 +23,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CUSTOM = ROOT / "custom_sprites"
+CUSTOM_CANDIDATES = (
+    CUSTOM,
+    CUSTOM / "custom_sprites",
+)
 
 
 def copy_if_exists(src: Path, dst: Path) -> bool:
@@ -85,29 +97,40 @@ BRAINROT_FOLDERS = {
 SPRITE_KINDS = ("front.png", "back.png", "icon.png", "normal.pal", "shiny.pal")
 
 
+def existing_custom_roots() -> list[Path]:
+    return [root for root in CUSTOM_CANDIDATES if root.exists()]
+
+
 def apply_roan() -> int:
     copied = 0
-    for src_rel, dst_rel in ROAN_FILES.items():
-        if copy_if_exists(CUSTOM / src_rel, ROOT / dst_rel):
-            copied += 1
+    for custom_root in existing_custom_roots():
+        for src_rel, dst_rel in ROAN_FILES.items():
+            if copy_if_exists(custom_root / src_rel, ROOT / dst_rel):
+                copied += 1
     return copied
 
 
 def apply_brainrots() -> int:
     copied = 0
-    for brainrot, folder in BRAINROT_FOLDERS.items():
-        for filename in SPRITE_KINDS:
-            src = CUSTOM / "brainrots" / brainrot / filename
-            dst = ROOT / "graphics" / "pokemon" / folder / filename
-            if copy_if_exists(src, dst):
-                copied += 1
+    for custom_root in existing_custom_roots():
+        for brainrot, folder in BRAINROT_FOLDERS.items():
+            for filename in SPRITE_KINDS:
+                src = custom_root / "brainrots" / brainrot / filename
+                dst = ROOT / "graphics" / "pokemon" / folder / filename
+                if copy_if_exists(src, dst):
+                    copied += 1
     return copied
 
 
 def main() -> None:
-    if not CUSTOM.exists():
+    roots = existing_custom_roots()
+    if not roots:
         print("custom_sprites folder not found; skipping custom sprite drop-ins.")
         return
+
+    print("Sprite drop-in roots:")
+    for root in roots:
+        print(f"  - {root.relative_to(ROOT)}")
 
     copied = apply_roan() + apply_brainrots()
     if copied == 0:
