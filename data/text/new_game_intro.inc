@@ -125,132 +125,96 @@ gNameChoice_Suzi::
     .string "SUZI$"
 
 gControlsGuide_Text_Intro::
-    .string "Use the buttons to move, talk,
-"
+    .string "Use the buttons to move, talk,\n"
     .string "choose, and read the story.$"
 
 gControlsGuide_Text_DPad::
-    .string "Moves ROAN.
-"
+    .string "Moves ROAN.\n"
     .string "Also moves the cursor in menus.$"
 
 gControlsGuide_Text_AButton::
-    .string "Confirms choices, talks to people,
-"
+    .string "Confirms choices, talks to people,\n"
     .string "checks objects, and advances text.$"
 
 gControlsGuide_Text_BButton::
-    .string "Cancels choices.
-"
+    .string "Cancels choices.\n"
     .string "Hold it while moving to run later.$"
 
 gControlsGuide_Text_StartButton::
-    .string "Opens the MENU.
-"
+    .string "Opens the MENU.\n"
     .string "Save often. The noise returns.$"
 
 gControlsGuide_Text_SelectButton::
-    .string "Uses registered tools.
-"
+    .string "Uses registered tools.\n"
     .string "Field gear will matter later.$"
 
 gControlsGuide_Text_LRButtons::
-    .string "Press L or R for HELP.
-"
+    .string "Press L or R for HELP.\n"
     .string "COGNIA calls it safe advice.$"
 
 gOakSpeech_Text_AskPlayerGender::
-    .string "Before the record continues...
-"
+    .string "Before the record continues...\n"
     .string "which file is yours?$"
 
 gPikachuIntro_Text_Page1::
-    .string "Ten years ago, a hospital room
-"
-    .string "filled with children repeating the
-"
-    .string "same words.
-"
-    .string "
-"
-    .string "TUNG TUNG TUNG SAHUR.
-"
+    .string "Ten years ago, a hospital room\n"
+    .string "filled with children repeating\n"
+    .string "the same words.\p"
+    .string "TUNG TUNG TUNG SAHUR.\n"
     .string "TUNG TUNG TUNG SAHUR.$"
 
 gPikachuIntro_Text_Page2::
-    .string "The words became a signal.
-"
-    .string "The signal became a shape.
-"
-    .string "
-"
-    .string "Something huge woke up inside
-"
-    .string "Kanto's thoughts.
-"
-    .string "Then the hospital vanished in
-"
+    .string "The words became a signal.\n"
+    .string "The signal became a shape.\p"
+    .string "Something huge woke up inside\n"
+    .string "Kanto's thoughts.\p"
+    .string "Then the hospital vanished in\n"
     .string "white light.$"
 
 gPikachuIntro_Text_Page3::
-    .string "A girl named LUNA disappeared.
-"
-    .string "After that night, almost everyone
-"
-    .string "forgot she existed.
-"
-    .string "
-"
-    .string "Only one boy remembered.
-"
+    .string "A girl named LUNA disappeared.\p"
+    .string "After that night, almost everyone\n"
+    .string "forgot she existed.\p"
+    .string "Only one boy remembered.\n"
     .string "His name was ROAN.$"
 
 gOakSpeech_Text_WelcomeToTheWorld::
     .string "AVELAR: This is not a welcome.\p"
     .string "This is a recovered memory.\p"
-    .string "If you are reading it, the Sahur
-"
+    .string "If you are reading it, the Sahur\n"
     .string "noise failed to erase you.\p$"
 
 gOakSpeech_Text_ThisWorld::
     .string "Kanto changed.$"
 
 gOakSpeech_Text_IsInhabitedFarAndWide::
-    .string "After the first echo, creatures
-"
-    .string "called BRAINROTS appeared
-"
+    .string "After the first echo, creatures\n"
+    .string "called BRAINROTS appeared\n"
     .string "across the region.\p$"
 
 gOakSpeech_Text_IStudyPokemon::
-    .string "Some people train them.
-"
+    .string "Some people train them.\n"
     .string "Some people fear them.\p"
     .string "COGNIA says they are normal.\p"
     .string "I study what COGNIA hides.\p$"
 
 gOakSpeech_Text_TellMeALittleAboutYourself::
-    .string "Before we continue, the record
-"
+    .string "Before we continue, the record\n"
     .string "needs to know who resisted.\p$"
 
 gOakSpeech_Text_YourNameWhatIsIt::
-    .string "State your name.
-"
+    .string "State your name.\n"
     .string "Hold on to it.\p$"
 
 gOakSpeech_Text_SoYourNameIsPlayer::
-    .string "Right...
-"
+    .string "Right...\n"
     .string "Your name is {PLAYER}.$"
 
 gOakSpeech_Text_WhatWasHisName::
     .string "This boy is KIUNIN.\p"
-    .string "He is loud, proud, and always
-"
+    .string "He is loud, proud, and always\n"
     .string "trying to outrun fear.\p"
-    .string "But the noise around him is
-"
+    .string "But the noise around him is\n"
     .string "stronger than he knows.\p"
     .string "What name did the record keep?$"
 
@@ -258,21 +222,5 @@ gOakSpeech_Text_YourRivalsNameWhatWasIt::
     .string "What was his name in this file?$"
 
 gOakSpeech_Text_ConfirmRivalName::
-    .string "...Was it {RIVAL}?$"
-
-gOakSpeech_Text_RememberRivalsName::
-    .string "Yes. {RIVAL}.
-"
-    .string "Remember that name too.\p$"
-
-gOakSpeech_Text_LetsGo::
-    .string "{PLAYER}!\p"
-    .string "You are about to wake up ten
-"
-    .string "years after the white flash.\p"
-    .string "Your parents will say LUNA never
-"
-    .string "existed.\p"
-    .string "Do not believe the quiet.
-"
-    .string "Follow the echo.$
+    .string "So his name is {RIVAL}.\p"
+    .string "Good. The record is awake.$"
