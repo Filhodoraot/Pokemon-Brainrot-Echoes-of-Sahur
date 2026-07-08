@@ -14,15 +14,23 @@ But the script also auto-detects nested or renamed upload folders, like:
     BrainrotImages/brainrots/noobini/front.png
     anything_else/brainrots/noobini/front.png
 
+It also accepts sprite ZIP uploads committed into the repo, like:
+
+    brainrot_lote1_custom_sprites_gba_ready.zip
+    custom_sprite_zips/brainrot_lote2.zip
+    custom_sprites/brainrot_lote3.zip
+
 Missing files are skipped, so the playtest can still build while art is WIP.
 """
 
 from __future__ import annotations
 
 import shutil
+import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+GENERATED_ZIP_ROOT = ROOT / "generated_custom_sprites_from_zips"
 
 # Do not scan heavy/source folders when looking for uploaded art folders.
 SKIP_DIRS = {
@@ -44,11 +52,74 @@ SKIP_DIRS = {
     "tools",
 }
 
+ZIP_NAME_HINTS = ("brainrot", "sprite", "sprites", "custom", "lote", "gba")
+
 
 def normalize_name(name: str) -> str:
     """Normalize folder names so Noobini, noobini, noobini_front all match better."""
     lowered = name.lower()
     return "".join(ch for ch in lowered if ch.isalnum())
+
+
+def is_relevant_zip(path: Path) -> bool:
+    lowered = path.name.lower()
+    return path.suffix.lower() == ".zip" and any(hint in lowered for hint in ZIP_NAME_HINTS)
+
+
+def is_safe_zip_member(name: str) -> bool:
+    target = Path(name)
+    if target.is_absolute():
+        return False
+    return ".." not in target.parts
+
+
+def discover_sprite_zips() -> list[Path]:
+    """Find likely sprite ZIPs without walking the full source tree."""
+    candidates: list[Path] = []
+
+    for item in ROOT.iterdir():
+        if item.is_file() and is_relevant_zip(item):
+            candidates.append(item)
+        elif item.is_dir() and not should_skip_dir(item):
+            for child in item.iterdir():
+                if child.is_file() and is_relevant_zip(child):
+                    candidates.append(child)
+
+    return sorted(set(candidates), key=lambda p: str(p).lower())
+
+
+def extract_sprite_zips() -> int:
+    zips = discover_sprite_zips()
+    if not zips:
+        return 0
+
+    if GENERATED_ZIP_ROOT.exists():
+        shutil.rmtree(GENERATED_ZIP_ROOT)
+    GENERATED_ZIP_ROOT.mkdir(parents=True, exist_ok=True)
+
+    extracted = 0
+    print("Sprite ZIPs found:")
+    for zip_path in zips:
+        out_dir = GENERATED_ZIP_ROOT / zip_path.stem
+        out_dir.mkdir(parents=True, exist_ok=True)
+        print(f"  - {zip_path.relative_to(ROOT)}")
+
+        with zipfile.ZipFile(zip_path) as zf:
+            for member in zf.infolist():
+                if member.is_dir():
+                    continue
+                if not is_safe_zip_member(member.filename):
+                    print(f"skipped unsafe zip member: {member.filename}")
+                    continue
+
+                target = out_dir / member.filename
+                target.parent.mkdir(parents=True, exist_ok=True)
+                with zf.open(member) as src, target.open("wb") as dst:
+                    shutil.copyfileobj(src, dst)
+                extracted += 1
+
+    print(f"Extracted {extracted} file(s) from sprite ZIP(s).")
+    return extracted
 
 
 def copy_if_exists(src: Path, dst: Path, copied_dests: set[Path]) -> bool:
@@ -192,12 +263,15 @@ def apply_brainrots(copied_dests: set[Path]) -> int:
 
 
 def main() -> None:
+    extract_sprite_zips()
+
     brainrots_dirs = discover_brainrots_dirs()
     roan_roots = discover_roan_roots()
 
     if not brainrots_dirs and not roan_roots:
         print("No custom sprite drop-in folders found; vanilla/placeholder graphics remain.")
         print("Expected a folder like: custom_sprites/brainrots/<name>/front.png")
+        print("Or a ZIP like: brainrot_lote1_custom_sprites_gba_ready.zip")
         return
 
     if brainrots_dirs:
