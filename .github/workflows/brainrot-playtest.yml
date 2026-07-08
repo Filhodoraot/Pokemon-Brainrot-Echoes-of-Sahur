@@ -62,6 +62,7 @@ jobs:
           python3 tools/patch_brainrot_starters_first_forms.py
           python3 tools/replace_vanilla_pokemon_with_brainrots.py
           python3 tools/patch_safe_item_messages.py
+          python3 tools/patch_brainrot_progression_and_text_cleanup.py
           python3 tools/sanitize_asm_string_newlines.py
           python3 tools/apply_custom_sprite_dropins.py || echo "Optional custom sprite drop-ins failed; continuing with available graphics."
           python3 tools/sanitize_brainrot_sprite_sizes.py
