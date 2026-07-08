@@ -46,14 +46,17 @@ jobs:
       - name: Apply Brainrot test patches
         run: |
           python3 tools/apply_brainrot_test_build.py
+          python3 tools/patch_brainrot_starters_first_forms.py
           python3 tools/patch_brainrot_types_phase1.py
           python3 tools/patch_brainrot_trainers.py
           python3 tools/patch_brainrot_story_phase2.py
+          python3 tools/patch_brainrot_starters_first_forms.py
           python3 tools/patch_brainrot_story_phase3.py
           python3 tools/patch_brainrot_intro_species.py
           python3 tools/patch_brainrot_story_phase4.py
           python3 tools/patch_brainrot_story_phase5.py
           python3 tools/patch_brainrot_story_phase6.py
+          python3 tools/patch_brainrot_starters_first_forms.py
           python3 tools/sanitize_asm_string_newlines.py
           python3 tools/apply_custom_sprite_dropins.py || echo "Optional custom sprite drop-ins failed; continuing with available graphics."
 
