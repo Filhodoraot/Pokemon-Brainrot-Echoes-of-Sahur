@@ -40,6 +40,7 @@ jobs:
       - name: Apply Brainrot test patches
         run: |
           python3 tools/apply_brainrot_test_build.py
+          python3 tools/patch_brainrot_types_phase1.py
           python3 tools/patch_brainrot_trainers.py
           python3 tools/patch_brainrot_story_phase2.py
           python3 tools/patch_brainrot_story_phase3.py
