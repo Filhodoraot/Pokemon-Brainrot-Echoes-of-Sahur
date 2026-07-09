@@ -24,16 +24,24 @@ SAFE_MACRO = '''\t@ Safer playtest version: adds item and prints the provided me
 \t.endm'''
 
 
+ORIGINAL_PATTERN = r"\t@ Adds the specified item to the bag, then prints a message with fanfare\. See description of msgreceiveditem\.\n\t\.macro giveitem_msg msg:req, item:req, amount=1, fanfare=MUS_LEVEL_UP\n\tadditem \\item, \\amount\n\tmsgreceiveditem \\msg, \\item, \\amount, \\fanfare\n\t\.endm"
+
+
 def main() -> None:
     text = PATH.read_text(encoding="utf-8")
-    pattern = r"\t@ Adds the specified item to the bag, then prints a message with fanfare\. See description of msgreceiveditem\.\n\t\.macro giveitem_msg msg:req, item:req, amount=1, fanfare=MUS_LEVEL_UP\n\tadditem \\item, \\amount\n\tmsgreceiveditem \\msg, \\item, \\amount, \\fanfare\n\t\.endm"
-    text, count = re.subn(pattern, SAFE_MACRO, text, count=1)
+
+    if "Safer playtest version" in text:
+        print("Safe giveitem_msg macro already present.")
+        return
+
+    # IMPORTANT: use a function replacement so Python's regex engine does not
+    # interpret assembler macro args like \item as regex replacement escapes.
+    text, count = re.subn(ORIGINAL_PATTERN, lambda _match: SAFE_MACRO, text, count=1)
+
     if count != 1:
-        # Already patched or macro text drifted. Keep build alive but warn loudly.
-        if "Safer playtest version" in text:
-            print("Safe giveitem_msg macro already present.")
-            return
-        raise RuntimeError("giveitem_msg macro block not found")
+        print("warning: original giveitem_msg macro block not found; build will continue.")
+        return
+
     PATH.write_text(text, encoding="utf-8")
     print("Safe giveitem_msg macro applied.")
 
