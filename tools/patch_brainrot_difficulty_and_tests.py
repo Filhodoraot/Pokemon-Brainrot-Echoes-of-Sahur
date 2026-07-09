@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""Harder playtest tuning plus simple Brainrot license test minigames.
+"""Harder playtest tuning plus Cognia mental-space license tests.
 
-This keeps the build safe and uses only existing FireRed script commands.
-The minigames are text/event based:
-- Brock asks a focus test before the battle.
-- Wrong answers do not softlock, but they waste time and force retry.
-- Trainer and wild levels get a small difficulty bump.
+The test is not a school quiz anymore.
+COGNIA uses the user's mind as the test space, making a small mental maze.
+At first, COGNIA thinks this is just science. Secretly, Dante's cult research
+turns these tests into a slow Tung Tung scanning system for IQ priority.
 """
 
 from __future__ import annotations
@@ -81,7 +80,6 @@ def patch_trainer_difficulty() -> None:
 
     text = re.sub(r"\.lvl\s*=\s*(\d+)", level_repl, text)
 
-    # Give trainers less cardboard IVs. This is light but noticeable.
     current_level = 5
     out: list[str] = []
     for line in text.splitlines():
@@ -129,22 +127,29 @@ def patch_wild_difficulty() -> None:
     print(f"Wild difficulty bumped: {changed} level value(s) changed.")
 
 
-def patch_brock_license_tests() -> None:
+def patch_brock_cognia_mental_maze() -> None:
+    """Replace the old quiz with a small path-choice mental maze.
+
+    It still uses simple FireRed event commands, but the fiction is not a quiz:
+    the player is walking through a mental space created by COGNIA's system.
+    The wrong corridors sound normal/safe, because common people in the story
+    believe Brainrots are just normal creatures.
+    """
     path = "data/maps/PewterCity_Gym/scripts.inc"
     text = read(path)
 
     brock = '''PewterCity_Gym_EventScript_Brock::
 	goto_if_unset FLAG_BEAT_RIVAL_IN_OAKS_LAB, PewterCity_Gym_EventScript_TooEarly
 	goto_if_set FLAG_TEMP_1, PewterCity_Gym_EventScript_BrockBattleReady
-	msgbox PewterCity_Gym_Text_FocusTestIntro
-	msgbox PewterCity_Gym_Text_FocusTestQuestion1, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, PewterCity_Gym_EventScript_FocusTestWrong
-	msgbox PewterCity_Gym_Text_FocusTestQuestion2, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, PewterCity_Gym_EventScript_FocusTestWrong
-	msgbox PewterCity_Gym_Text_FocusTestQuestion3, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, PewterCity_Gym_EventScript_FocusTestWrong
+	msgbox PewterCity_Gym_Text_MentalMazeIntro
+	msgbox PewterCity_Gym_Text_MentalMazeDoorOne, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, PewterCity_Gym_EventScript_MentalMazeFail
+	msgbox PewterCity_Gym_Text_MentalMazeDoorTwo, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, PewterCity_Gym_EventScript_MentalMazeFail
+	msgbox PewterCity_Gym_Text_MentalMazeDoorThree, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, PewterCity_Gym_EventScript_MentalMazeFail
 	setflag FLAG_TEMP_1
-	msgbox PewterCity_Gym_Text_FocusTestPass
+	msgbox PewterCity_Gym_Text_MentalMazePass
 	goto PewterCity_Gym_EventScript_BrockBattleReady
 
 PewterCity_Gym_EventScript_BrockBattleReady::
@@ -155,8 +160,8 @@ PewterCity_Gym_EventScript_BrockBattleReady::
 	release
 	end
 
-PewterCity_Gym_EventScript_FocusTestWrong::
-	msgbox PewterCity_Gym_Text_FocusTestWrong
+PewterCity_Gym_EventScript_MentalMazeFail::
+	msgbox PewterCity_Gym_Text_MentalMazeFail
 	closemessage
 	delay 20
 	release
@@ -166,43 +171,57 @@ PewterCity_Gym_EventScript_FocusTestWrong::
 
     text_path = "data/maps/PewterCity_Gym/text.inc"
     text = read(text_path)
-    text = ensure_once(text, "PewterCity_Gym_Text_FocusTestIntro::", '''PewterCity_Gym_Text_FocusTestIntro::
-    .string "BROCK: License D is not\n"
-    .string "only a battle.\p"
-    .string "First comes a focus test.\n"
-    .string "Answer without letting the\l"
-    .string "brainrot noise bait you.$"''')
-    text = ensure_once(text, "PewterCity_Gym_Text_FocusTestQuestion1::", '''PewterCity_Gym_Text_FocusTestQuestion1::
-    .string "Question 1.\p"
-    .string "Is TUNG TUNG SAHUR a normal\n"
-    .string "evolution line with a mini form?$"''')
-    text = ensure_once(text, "PewterCity_Gym_Text_FocusTestQuestion2::", '''PewterCity_Gym_Text_FocusTestQuestion2::
-    .string "Question 2.\p"
-    .string "Should a trainer catch evidence\n"
-    .string "instead of chasing noise?$"''')
-    text = ensure_once(text, "PewterCity_Gym_Text_FocusTestQuestion3::", '''PewterCity_Gym_Text_FocusTestQuestion3::
-    .string "Question 3.\p"
-    .string "If a mirror writes 67, should\n"
-    .string "you repeat it out loud?$"''')
-    text = ensure_once(text, "PewterCity_Gym_Text_FocusTestPass::", '''PewterCity_Gym_Text_FocusTestPass::
-    .string "BROCK: Good.\p"
-    .string "Your focus did not wobble.\n"
-    .string "Now comes the pressure duel.$"''')
-    text = ensure_once(text, "PewterCity_Gym_Text_FocusTestWrong::", '''PewterCity_Gym_Text_FocusTestWrong::
-    .string "BROCK: Wrong.\p"
-    .string "That answer lets the noise\n"
-    .string "steer you.\p"
-    .string "Step back, breathe, and try\n"
-    .string "the test again.$"''')
+    text = ensure_once(text, "PewterCity_Gym_Text_MentalMazeIntro::", '''PewterCity_Gym_Text_MentalMazeIntro::
+    .string "BROCK: Before the duel, COGNIA\n"
+    .string "requires a mind-space scan.\p"
+    .string "Most people think BRAINROTS\n"
+    .string "are only normal creatures.\p"
+    .string "This system tests whether your\n"
+    .string "mind follows the safe crowd\l"
+    .string "or notices the hidden signal.$"''')
+    text = ensure_once(text, "PewterCity_Gym_Text_MentalMazeDoorOne::", '''PewterCity_Gym_Text_MentalMazeDoorOne::
+    .string "Your mind becomes a hallway.\p"
+    .string "LEFT door: children laughing\n"
+    .string "with harmless BRAINROTS.\p"
+    .string "RIGHT door: one quiet room\n"
+    .string "with no sound at all.\p"
+    .string "Enter the LEFT door?$"''')
+    text = ensure_once(text, "PewterCity_Gym_Text_MentalMazeDoorTwo::", '''PewterCity_Gym_Text_MentalMazeDoorTwo::
+    .string "The silent room folds inward.\p"
+    .string "A COGNIA sign says:\n"
+    .string "DO NOT RESIST. THIS IS SAFE.\p"
+    .string "A cracked wall shows a small\n"
+    .string "LUNA scratch mark.\p"
+    .string "Trust the COGNIA sign?$"''')
+    text = ensure_once(text, "PewterCity_Gym_Text_MentalMazeDoorThree::", '''PewterCity_Gym_Text_MentalMazeDoorThree::
+    .string "Behind the crack, a number\n"
+    .string "tries to write itself: 67.\p"
+    .string "The hallway asks for your\n"
+    .string "thoughts, not your voice.\p"
+    .string "Step through without repeating\n"
+    .string "the number out loud?$"''')
+    text = ensure_once(text, "PewterCity_Gym_Text_MentalMazePass::", '''PewterCity_Gym_Text_MentalMazePass::
+    .string "BROCK: You passed.\p"
+    .string "You ignored the easy story.\n"
+    .string "That is rare.\p"
+    .string "COGNIA calls this calibration.\n"
+    .string "I am not sure that is all.$"''')
+    text = ensure_once(text, "PewterCity_Gym_Text_MentalMazeFail::", '''PewterCity_Gym_Text_MentalMazeFail::
+    .string "The hallway smiles.\p"
+    .string "For a second, you believe\n"
+    .string "everything is normal.\p"
+    .string "Then the test rejects you.\n"
+    .string "Your thoughts were too easy\l"
+    .string "to lead.$"''')
     write(text_path, text)
-    print("Brock focus-test minigame added.")
+    print("COGNIA mental maze trial added.")
 
 
 def main() -> None:
     patch_trainer_difficulty()
     patch_wild_difficulty()
-    patch_brock_license_tests()
-    print("Brainrot difficulty and test patch applied.")
+    patch_brock_cognia_mental_maze()
+    print("Brainrot difficulty and Cognia mental test patch applied.")
 
 
 if __name__ == "__main__":
