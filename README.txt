@@ -1,0 +1,21 @@
+Roan sprite pack with background removed (RGBA).
+Includes the cleaned full sprite sheet plus separated sprite PNGs.
+Total separated sprites: 18
+large_sprite_01.png - box=(102,39)-(216,242)
+large_sprite_02.png - box=(296,40)-(414,246)
+large_sprite_03.png - box=(497,40)-(607,246)
+large_sprite_04.png - box=(687,42)-(798,244)
+large_sprite_05.png - box=(966,60)-(1230,448)
+large_sprite_06.png - box=(97,276)-(216,475)
+large_sprite_07.png - box=(292,276)-(405,474)
+large_sprite_08.png - box=(482,277)-(595,474)
+large_sprite_09.png - box=(681,280)-(794,474)
+large_sprite_10.png - box=(111,508)-(213,699)
+large_sprite_11.png - box=(297,508)-(398,697)
+large_sprite_12.png - box=(489,508)-(589,698)
+large_sprite_13.png - box=(687,509)-(786,699)
+large_sprite_14.png - box=(1015,546)-(1278,926)
+large_sprite_15.png - box=(98,741)-(195,937)
+large_sprite_16.png - box=(291,741)-(387,936)
+large_sprite_17.png - box=(481,741)-(578,937)
+large_sprite_18.png - box=(681,744)-(777,939)
