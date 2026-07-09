@@ -5,7 +5,10 @@ This patch makes the early game less like vanilla FireRed:
 - The rival battle becomes an emergency license evaluation.
 - The BRAINDEX and Brainrot Balls are given immediately after the first duel.
 - The parcel loop is skipped for the playtest.
-- A best-effort Roan palette recolor is attempted if matching palette files exist.
+
+Player sprite/palette recolors are intentionally disabled here. Red/Roan graphics
+need exact GBA palette mapping and should not be changed by broad text/story
+patches.
 """
 
 from __future__ import annotations
@@ -199,47 +202,7 @@ def patch_training_center_town_text() -> None:
 
 
 def patch_roan_palette_best_effort() -> None:
-    """Try to darken Red/Roan colors without failing the build.
-
-    This no longer turns Red's clothes blue. It swaps the bright red outfit
-    into dark neutral hoodie colors: charcoal, black, and soft gray.
-    """
-    likely_names = ("red", "boy", "player", "hero", "brendan")
-    changed = []
-    for pal in ROOT.glob("graphics/**/*.pal"):
-        low = pal.as_posix().lower()
-        if not any(name in low for name in likely_names):
-            continue
-        try:
-            text = pal.read_text(encoding="utf-8")
-        except UnicodeDecodeError:
-            continue
-        original = text
-        # Common JASC palette red ranges used by Red's hat/shirt.
-        # Use dark neutral shades instead of blue.
-        swaps = {
-            "248 0 0": "40 40 44",
-            "240 0 0": "40 40 44",
-            "224 0 0": "32 32 36",
-            "216 0 0": "32 32 36",
-            "200 0 0": "24 24 28",
-            "192 0 0": "24 24 28",
-            "248 64 64": "72 72 76",
-            "240 64 64": "72 72 76",
-            "248 120 120": "112 112 116",
-            "240 120 120": "112 112 116",
-        }
-        for old, new in swaps.items():
-            text = text.replace(old, new)
-        if text != original:
-            pal.write_text(text, encoding="utf-8")
-            changed.append(pal.as_posix())
-    if changed:
-        print("Roan dark neutral palette recolor applied to:")
-        for path in changed:
-            print(f"  - {path}")
-    else:
-        print("Roan palette recolor skipped: no matching palette rows found yet.")
+    print("Roan/player palette recolor disabled in phase 2 to keep Red stable.")
 
 
 def main() -> None:
