@@ -35,6 +35,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install build dependencies
         run: |
@@ -72,6 +74,7 @@ jobs:
           python3 tools/sanitize_asm_string_newlines.py
           python3 tools/apply_custom_sprite_dropins.py || echo "Optional custom sprite drop-ins failed; continuing with available graphics."
           python3 tools/sanitize_brainrot_sprite_sizes.py
+          python3 tools/restore_red_player_assets.py
           echo "Roan sprite and player palette auto-patches are disabled until mapping is fixed."
 
       - name: Build modern GBA ROM
