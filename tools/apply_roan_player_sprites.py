@@ -11,6 +11,7 @@ This importer is best-effort and build-safe.
 
 from __future__ import annotations
 
+import math
 import shutil
 import zipfile
 from pathlib import Path
@@ -94,13 +95,75 @@ def fit_canvas(img: Image.Image, size: tuple[int, int]) -> Image.Image:
     return out
 
 
+def quantized_colors_for_opaque_pixels(rgba: Image.Image, max_colors: int = 15) -> list[tuple[int, int, int]]:
+    colors: list[tuple[int, int, int]] = []
+    pix = rgba.load()
+    for y in range(rgba.height):
+        for x in range(rgba.width):
+            r, g, b, a = pix[x, y]
+            if a == 0:
+                continue
+            colors.append((r, g, b))
+
+    if not colors:
+        return []
+
+    strip = Image.new("RGB", (len(colors), 1))
+    strip.putdata(colors)
+    q = strip.quantize(colors=max_colors, method=Image.Quantize.MEDIANCUT)
+    palette = q.getpalette() or []
+    used = sorted(set(q.getdata()))
+    out: list[tuple[int, int, int]] = []
+    for idx in used[:max_colors]:
+        base = idx * 3
+        out.append((palette[base], palette[base + 1], palette[base + 2]))
+    return out
+
+
+def nearest_palette_index(rgb: tuple[int, int, int], palette: list[tuple[int, int, int]]) -> int:
+    r, g, b = rgb
+    best_i = 1
+    best_dist = 10**9
+    for i, (pr, pg, pb) in enumerate(palette, start=1):
+        dist = (r - pr) ** 2 + (g - pg) ** 2 + (b - pb) ** 2
+        if dist < best_dist:
+            best_dist = dist
+            best_i = i
+    return best_i
+
+
 def save_indexed(img: Image.Image, path: Path) -> None:
+    """Save GBA-safe indexed PNG with transparent/background pixels at palette index 0.
+
+    The old version let PIL choose palette slot 0. In FireRed/GBA that slot is
+    treated as transparent, so if PIL made blue index 0 the whole sprite got a
+    blue rectangle. This version reserves slot 0 on purpose.
+    """
     path.parent.mkdir(parents=True, exist_ok=True)
     rgba = img.convert("RGBA")
-    flat = Image.new("RGB", rgba.size, (255, 0, 255))
-    flat.paste(rgba, mask=rgba.getchannel("A"))
-    indexed = flat.quantize(colors=16, method=Image.Quantize.MEDIANCUT)
-    indexed.save(path)
+    colors = quantized_colors_for_opaque_pixels(rgba, 15)
+
+    paletted = Image.new("P", rgba.size, 0)
+    palette_values: list[int] = [255, 0, 255]  # transparent key color at index 0
+    for r, g, b in colors:
+        palette_values.extend([r, g, b])
+    while len(palette_values) < 256 * 3:
+        palette_values.extend([0, 0, 0])
+    paletted.putpalette(palette_values[: 256 * 3])
+
+    src = rgba.load()
+    dst = paletted.load()
+    for y in range(rgba.height):
+        for x in range(rgba.width):
+            r, g, b, a = src[x, y]
+            if a == 0:
+                dst[x, y] = 0
+            elif colors:
+                dst[x, y] = nearest_palette_index((r, g, b), colors)
+            else:
+                dst[x, y] = 0
+
+    paletted.save(path)
 
 
 def sprite_path(source: Path, num: int) -> Path:
