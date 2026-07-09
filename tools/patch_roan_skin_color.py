@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
-"""Force Roan/player skin colors away from accidental blue palettes.
+"""Force Roan/player colors away from accidental blue palettes.
 
-Some player palettes are separate from the outfit palette, so changing Red's
-clothes is not enough. This pass only touches likely player/Roan assets and
-turns common accidental blue/cyan skin tones into natural GBA skin shades.
-It is best-effort and build-safe.
+The previous pass only looked for obvious names like red/player/hero. Some
+FireRed player graphics live under generic object-event folders, so this pass
+also scans likely player object-event and trainer back-pic areas.
+
+Goal:
+- no blue skin
+- no full blue outfit/body
+- keep the build safe by saving edited PNGs as indexed/paletted PNGs
 """
 
 from __future__ import annotations
@@ -13,11 +17,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-LIKELY_PLAYER_PATH_WORDS = (
+NAME_HINTS = (
     "red",
     "player",
     "hero",
     "boy",
+    "male",
     "brendan",
     "roan",
     "back_pic",
@@ -25,27 +30,40 @@ LIKELY_PLAYER_PATH_WORDS = (
     "trainer_red",
 )
 
-# Blue/cyan rows that came from earlier recolor attempts or palette drift.
-# They are mapped to simple FireRed/GBA skin ramps.
+PATH_HINTS = (
+    "graphics/object_events/pics/people",
+    "graphics/object_events/pics/field_player",
+    "graphics/object_events/pics/player",
+    "graphics/trainers/back_pics",
+    "graphics/trainers/front_pics/red",
+    "graphics/trainers/front_pics/leaf",
+    "graphics/trainers/front_pics/brendan",
+)
+
+# Palette rows. Dark/mid blues become Roan's dark outfit. Bright cyan-blue that
+# often came from skin drift becomes natural GBA skin highlight.
 PAL_SWAPS = {
-    "16 24 56": "88 48 32",
-    "24 32 64": "120 72 48",
-    "32 48 88": "160 96 64",
-    "40 56 104": "192 128 88",
-    "48 72 128": "224 160 112",
-    "64 96 160": "240 184 136",
-    "88 120 184": "248 200 152",
-    "104 144 216": "248 216 176",
-    "120 160 224": "248 224 192",
-    "128 184 248": "248 224 192",
-    "64 160 224": "240 184 136",
-    "80 176 240": "248 200 152",
+    "8 16 48": "16 16 20",
+    "16 24 56": "24 24 28",
+    "24 32 64": "32 32 36",
+    "32 48 88": "40 40 44",
+    "40 56 104": "48 48 52",
+    "48 72 128": "64 64 68",
+    "64 96 160": "80 80 84",
+    "88 120 184": "112 112 116",
+    "104 144 216": "224 160 112",
+    "120 160 224": "240 184 136",
+    "128 184 248": "248 200 152",
+    "64 160 224": "224 160 112",
+    "80 176 240": "240 184 136",
 }
 
 
 def is_likely_player_asset(path: Path) -> bool:
     low = path.as_posix().lower()
-    return any(word in low for word in LIKELY_PLAYER_PATH_WORDS)
+    if any(hint in low for hint in PATH_HINTS):
+        return True
+    return any(word in low for word in NAME_HINTS)
 
 
 def patch_pal_file(path: Path) -> bool:
@@ -60,39 +78,55 @@ def patch_pal_file(path: Path) -> bool:
 
     if text != original:
         path.write_text(text, encoding="utf-8")
-        print(f"fixed Roan skin palette rows: {path.relative_to(ROOT)}")
+        print(f"fixed Roan/player blue palette rows: {path.relative_to(ROOT)}")
         return True
     return False
 
 
-def nearest_skin_for_blue(r: int, g: int, b: int) -> tuple[int, int, int] | None:
-    # Only obvious accidental blue/cyan colors. Do not touch dark outlines,
-    # normal black/gray, or tiny blue UI details.
-    if b < 80:
+def replacement_for_blue(r: int, g: int, b: int) -> tuple[int, int, int] | None:
+    # Only obvious accidental blue/cyan. Avoid touching black outlines, gray,
+    # or normal UI-ish colors.
+    if b < 70:
         return None
-    if b <= r + 35 or b <= g + 20:
+    if b <= r + 35 or b <= g + 15:
         return None
-    if r < 20 and g < 20 and b < 90:
+    if r < 18 and g < 18 and b < 90:
         return None
 
     brightness = (r + g + b) // 3
-    if brightness < 70:
-        return (88, 48, 32)
+
+    # Dark/mid blues are usually the accidental blue outfit/body from the bug.
+    if brightness < 75:
+        return (24, 24, 28)
     if brightness < 105:
-        return (144, 88, 56)
-    if brightness < 145:
-        return (192, 128, 88)
-    if brightness < 185:
+        return (40, 40, 44)
+    if brightness < 135:
+        return (64, 64, 68)
+    if brightness < 165:
+        return (96, 96, 100)
+
+    # Very bright cyan/blue highlights are more likely the skin/highlight drift.
+    if brightness < 200:
         return (224, 160, 112)
     return (248, 200, 152)
 
 
+def save_indexed_png(img, path: Path) -> None:
+    # gbagfx is happier with indexed PNGs than accidental RGBA files.
+    rgb = img.convert("RGB")
+    indexed = rgb.quantize(colors=16, method=Image.Quantize.MEDIANCUT)
+    indexed.save(path)
+
+
 def patch_png_file(path: Path) -> bool:
     try:
-        from PIL import Image
+        from PIL import Image as PILImage
     except ImportError:
-        print("warning: Pillow missing; PNG Roan skin fix skipped.")
+        print("warning: Pillow missing; PNG Roan/player color fix skipped.")
         return False
+
+    global Image
+    Image = PILImage
 
     try:
         img = Image.open(path)
@@ -108,23 +142,17 @@ def patch_png_file(path: Path) -> bool:
             r, g, b, a = pixels[x, y]
             if a == 0:
                 continue
-            skin = nearest_skin_for_blue(r, g, b)
-            if skin is None:
+            replacement = replacement_for_blue(r, g, b)
+            if replacement is None:
                 continue
-            pixels[x, y] = (*skin, a)
+            pixels[x, y] = (*replacement, a)
             changed += 1
 
     if changed == 0:
         return False
 
-    # Preserve indexed PNGs when possible because gbagfx prefers paletted input.
-    if img.mode == "P":
-        indexed = rgba.convert("RGB").quantize(colors=16, method=Image.Quantize.MEDIANCUT)
-        indexed.save(path)
-    else:
-        rgba.save(path)
-
-    print(f"fixed Roan blue skin pixels: {path.relative_to(ROOT)} ({changed} px)")
+    save_indexed_png(rgba, path)
+    print(f"fixed Roan/player blue pixels: {path.relative_to(ROOT)} ({changed} px)")
     return True
 
 
@@ -139,13 +167,16 @@ def main() -> None:
             continue
         if not is_likely_player_asset(path):
             continue
+        # Do not touch Pokemon/Brainrot sprites here.
+        if "graphics/pokemon/" in path.as_posix().lower():
+            continue
         scanned += 1
         if path.suffix.lower() == ".pal":
             changed += int(patch_pal_file(path))
         else:
             changed += int(patch_png_file(path))
 
-    print(f"Roan skin color pass complete: {changed} file(s) changed, {scanned} likely player asset(s) scanned.")
+    print(f"Roan/player blue cleanup complete: {changed} file(s) changed, {scanned} likely player asset(s) scanned.")
 
 
 if __name__ == "__main__":
