@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 """Normalize custom Brainrot sprite PNG sizes before the GBA build.
 
-The GBA menu icon format is strict:
+The GBA sprite formats are strict:
 - front.png: 64x64
 - back.png: 64x64
 - icon.png: 32x64, made of two 32x32 frames stacked vertically
 
-If an uploaded icon is larger or malformed, it can overflow/corrupt VRAM and show
-huge glitchy icons in battle or party menus. This script repairs the copied PNGs
-inside graphics/pokemon after custom sprite drop-ins run.
+Important: gbagfx does not accept RGBA PNGs for these sprite conversions.
+This script saves repaired sprites as indexed/paletted PNGs with <= 16 colors.
 """
 
 from __future__ import annotations
@@ -31,7 +30,7 @@ def alpha_bbox(img: Image.Image):
 
 
 def fit_nearest(src: Image.Image, size: tuple[int, int]) -> Image.Image:
-    """Fit visible pixels into a transparent canvas without smoothing."""
+    """Fit visible pixels into a transparent RGBA canvas without smoothing."""
     target_w, target_h = size
     rgba = src.convert("RGBA")
     bbox = alpha_bbox(rgba)
@@ -51,6 +50,43 @@ def fit_nearest(src: Image.Image, size: tuple[int, int]) -> Image.Image:
     return out
 
 
+def save_indexed_png(img: Image.Image, path: Path) -> None:
+    """Save an image in a gbagfx-safe PNG color type.
+
+    Transparent pixels are flattened to the top-left color/transparent slot.
+    The PNG is paletted/indexed, not RGBA, because gbagfx rejects RGBA here.
+    """
+    rgba = img.convert("RGBA")
+
+    # Use magenta as a temporary transparent color. It is easy to reserve and
+    # avoids creating alpha PNGs, which gbagfx rejects for these files.
+    transparent_rgb = (255, 0, 255)
+    flattened = Image.new("RGB", rgba.size, transparent_rgb)
+    flattened.paste(rgba, mask=rgba.getchannel("A"))
+
+    # Reserve one palette slot for transparency color, plus up to 15 sprite colors.
+    paletted = flattened.quantize(colors=16, method=Image.Quantize.MEDIANCUT)
+
+    # Force pixel 0,0 to be transparent color so normal GBA palette generation
+    # treats the background as the first color more reliably.
+    paletted_rgb = paletted.convert("RGB")
+    px = paletted_rgb.load()
+    px[0, 0] = transparent_rgb
+    paletted = paletted_rgb.quantize(colors=16, method=Image.Quantize.MEDIANCUT)
+
+    paletted.save(path)
+
+
+def needs_front_back_fix(path: Path) -> bool:
+    try:
+        img = Image.open(path)
+    except Exception:
+        return True
+    # gbagfx-safe existing sprites are usually indexed P. Do not rewrite them
+    # unless dimensions are wrong or the uploaded PNG is RGBA/LA.
+    return img.size != (64, 64) or img.mode in {"RGBA", "LA"}
+
+
 def sanitize_front_back(path: Path) -> bool:
     if not path.exists():
         return False
@@ -60,12 +96,21 @@ def sanitize_front_back(path: Path) -> bool:
         print(f"warning: could not read {path.relative_to(ROOT)}: {exc}")
         return False
 
+    if not needs_front_back_fix(path):
+        return False
+
     fixed = fit_nearest(img, (64, 64))
-    if img.size != (64, 64) or img.mode != "RGBA":
-        fixed.save(path)
-        print(f"fixed battle sprite size: {path.relative_to(ROOT)} -> 64x64")
+    save_indexed_png(fixed, path)
+    print(f"fixed battle sprite: {path.relative_to(ROOT)} -> 64x64 indexed PNG")
+    return True
+
+
+def needs_icon_fix(path: Path) -> bool:
+    try:
+        img = Image.open(path)
+    except Exception:
         return True
-    return False
+    return img.size != (32, 64) or img.mode in {"RGBA", "LA"}
 
 
 def sanitize_icon(path: Path, front_fallback: Path | None = None) -> bool:
@@ -78,37 +123,31 @@ def sanitize_icon(path: Path, front_fallback: Path | None = None) -> bool:
     else:
         img = None
 
-    changed = False
+    created_from_front = False
     if img is None and front_fallback is not None and front_fallback.exists():
         img = Image.open(front_fallback).convert("RGBA")
-        changed = True
+        created_from_front = True
 
     if img is None:
+        return False
+
+    if path.exists() and not created_from_front and not needs_icon_fix(path):
         return False
 
     if img.size == (32, 64):
         frame1 = img.crop((0, 0, 32, 32))
         frame2 = img.crop((0, 32, 32, 64))
-        # Re-save as clean RGBA to remove odd metadata/modes.
         fixed = Image.new("RGBA", (32, 64), (0, 0, 0, 0))
         fixed.alpha_composite(frame1, (0, 0))
         fixed.alpha_composite(frame2, (0, 32))
-        if img.mode != "RGBA" or changed:
-            fixed.save(path)
-            print(f"cleaned icon sprite: {path.relative_to(ROOT)}")
-            return True
-        return False
-
-    if img.size == (32, 32):
-        frame = img
     else:
-        frame = fit_nearest(img, (32, 32))
+        frame = img if img.size == (32, 32) else fit_nearest(img, (32, 32))
+        fixed = Image.new("RGBA", (32, 64), (0, 0, 0, 0))
+        fixed.alpha_composite(frame, (0, 0))
+        fixed.alpha_composite(frame, (0, 32))
 
-    fixed = Image.new("RGBA", (32, 64), (0, 0, 0, 0))
-    fixed.alpha_composite(frame, (0, 0))
-    fixed.alpha_composite(frame, (0, 32))
-    fixed.save(path)
-    print(f"fixed menu icon size: {path.relative_to(ROOT)} -> 32x64")
+    save_indexed_png(fixed, path)
+    print(f"fixed menu icon: {path.relative_to(ROOT)} -> 32x64 indexed PNG")
     return True
 
 
