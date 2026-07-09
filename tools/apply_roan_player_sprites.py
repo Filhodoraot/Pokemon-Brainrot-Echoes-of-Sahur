@@ -1,21 +1,12 @@
 #!/usr/bin/env python3
 """Import Roan player sprites from a ZIP/folder when present.
 
-Expected upload options:
-- roan_sprites_rgba.zip in the repo root, or
-- roan_sprites_rgba/ containing sprite_01.png ... sprite_18.png
+Accepted upload options:
+- roan_sprites_rgba.zip with sprite_01.png ... sprite_18.png
+- roan_sprite_pack.zip with large_sprite_01.png ... large_sprite_18.png
+- roan_sprites_rgba/ or roan_sprite_pack/ folders
 
-The generated sheet order from the ChatGPT cutout tool is:
-01-04 down/front overworld frames
-06-09 up/back overworld frames
-10-13 side direction frames
-15-18 opposite side direction frames
-05 trainer front
-14 trainer back
-
-This importer is intentionally best-effort. If the exact FireRed graphics paths
-are not found in the current repo layout, it writes prepared PNGs into
-custom_player_sprites/roan_prepared/ so nothing breaks and we can map them later.
+This importer is best-effort and build-safe.
 """
 
 from __future__ import annotations
@@ -26,11 +17,15 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 ZIP_CANDIDATES = [
+    ROOT / "roan_sprite_pack.zip",
     ROOT / "roan_sprites_rgba.zip",
+    ROOT / "custom_player_sprites" / "roan_sprite_pack.zip",
     ROOT / "custom_player_sprites" / "roan_sprites_rgba.zip",
 ]
 DIR_CANDIDATES = [
+    ROOT / "roan_sprite_pack",
     ROOT / "roan_sprites_rgba",
+    ROOT / "custom_player_sprites" / "roan_sprite_pack",
     ROOT / "custom_player_sprites" / "roan_sprites_rgba",
 ]
 PREPARED = ROOT / "custom_player_sprites" / "roan_prepared"
@@ -41,9 +36,13 @@ except ImportError as exc:
     raise SystemExit("Pillow is required for Roan sprite import.") from exc
 
 
+def folder_has_sprites(folder: Path) -> bool:
+    return any(folder.glob("sprite_*.png")) or any(folder.glob("large_sprite_*.png"))
+
+
 def find_source_dir() -> Path | None:
     for folder in DIR_CANDIDATES:
-        if folder.exists() and any(folder.glob("sprite_*.png")):
+        if folder.exists() and folder_has_sprites(folder):
             return folder
 
     for zip_path in ZIP_CANDIDATES:
@@ -54,11 +53,10 @@ def find_source_dir() -> Path | None:
             out.mkdir(parents=True, exist_ok=True)
             with zipfile.ZipFile(zip_path) as zf:
                 zf.extractall(out)
-            # ZIP may contain files directly or in a folder.
-            if any(out.glob("sprite_*.png")):
+            if folder_has_sprites(out):
                 return out
             for folder in out.rglob("*"):
-                if folder.is_dir() and any(folder.glob("sprite_*.png")):
+                if folder.is_dir() and folder_has_sprites(folder):
                     return folder
     return None
 
@@ -74,7 +72,7 @@ def rgba_without_checkerboard(path: Path) -> Image.Image:
             mx = max(r, g, b)
             mn = min(r, g, b)
             mean = (r + g + b) / 3
-            if mx - mn <= 12 and mean >= 205:
+            if mx - mn <= 18 and mean >= 205:
                 pix[x, y] = (0, 0, 0, 0)
     return img
 
@@ -99,28 +97,36 @@ def fit_canvas(img: Image.Image, size: tuple[int, int]) -> Image.Image:
 def save_indexed(img: Image.Image, path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     rgba = img.convert("RGBA")
-    # Flatten transparent pixels to magenta, then quantize to <=16 colors.
     flat = Image.new("RGB", rgba.size, (255, 0, 255))
     flat.paste(rgba, mask=rgba.getchannel("A"))
     indexed = flat.quantize(colors=16, method=Image.Quantize.MEDIANCUT)
     indexed.save(path)
 
 
+def sprite_path(source: Path, num: int) -> Path:
+    options = [
+        source / f"sprite_{num:02d}.png",
+        source / f"large_sprite_{num:02d}.png",
+    ]
+    for path in options:
+        if path.exists():
+            return path
+    raise FileNotFoundError(f"missing Roan sprite #{num:02d} in {source}")
+
+
 def load_sprite(source: Path, num: int) -> Image.Image:
-    path = source / f"sprite_{num:02d}.png"
-    if not path.exists():
-        raise FileNotFoundError(path)
-    return rgba_without_checkerboard(path)
+    return rgba_without_checkerboard(sprite_path(source, num))
 
 
 def build_overworld_sheet(source: Path) -> Image.Image:
-    # 4 directions x 4 frames. We duplicate first/idle frame as frame 4.
-    # Rows: down, up, right, left. Each cell 32x32 for safer FireRed object art.
+    # Current generated pack order:
+    # 01-04 = back/up, 05-08 = front/down, 09-12 = side A, 13-16 = side B.
+    # 17/18 = trainer front/back in many packs, but old packs may use 05/14.
     rows = [
-        [1, 2, 3, 4],
-        [6, 7, 8, 9],
-        [10, 11, 12, 13],
-        [15, 16, 17, 18],
+        [5, 6, 7, 8],       # down/front
+        [1, 2, 3, 4],       # up/back
+        [9, 10, 11, 12],    # side
+        [13, 14, 15, 16],   # opposite side
     ]
     sheet = Image.new("RGBA", (32 * 4, 32 * 4), (0, 0, 0, 0))
     for row_i, row in enumerate(rows):
@@ -130,7 +136,18 @@ def build_overworld_sheet(source: Path) -> Image.Image:
     return sheet
 
 
-def build_battle_sprite(source: Path, num: int, size: tuple[int, int]) -> Image.Image:
+def pick_existing_sprite(source: Path, preferred: list[int]) -> int:
+    for num in preferred:
+        try:
+            sprite_path(source, num)
+            return num
+        except FileNotFoundError:
+            pass
+    raise FileNotFoundError(f"none of these Roan sprites exist: {preferred}")
+
+
+def build_battle_sprite(source: Path, preferred_nums: list[int], size: tuple[int, int]) -> Image.Image:
+    num = pick_existing_sprite(source, preferred_nums)
     return fit_canvas(load_sprite(source, num), size)
 
 
@@ -153,8 +170,8 @@ def main() -> None:
     PREPARED.mkdir(parents=True, exist_ok=True)
 
     overworld = build_overworld_sheet(source)
-    trainer_front = build_battle_sprite(source, 5, (64, 64))
-    trainer_back = build_battle_sprite(source, 14, (64, 64))
+    trainer_front = build_battle_sprite(source, [17, 5], (64, 64))
+    trainer_back = build_battle_sprite(source, [18, 14], (64, 64))
 
     prepared_overworld = PREPARED / "roan_overworld.png"
     prepared_front = PREPARED / "roan_trainer_front.png"
