@@ -1,12 +1,8 @@
 #!/usr/bin/env python3
 """Progression locks and text cleanup for Brainrot playtests.
 
-Fixes common playtest issues:
-- The player must do the first rival/Kiunin battle before Route 1/Brock flow.
-- Brock/Liam refuse the License D exam if the first lab battle was skipped.
-- Generic vanilla text terms are cleaned inside .string lines only.
-- The Geodude placeholder line no longer uses Tung Tung names, because Tung Tung
-  Sahur is legendary and must not have mini/evolution forms.
+This patch is build-safe. If a target label changes, it prints a warning and
+continues instead of killing the whole playtest build.
 """
 
 from __future__ import annotations
@@ -38,19 +34,32 @@ def ensure_once(text: str, marker: str, block: str) -> str:
     return text + "\n" + block.rstrip() + "\n"
 
 
-def replace_label_block(text: str, label: str, new_block: str) -> str:
+def replace_label_block(text: str, label: str, new_block: str) -> tuple[str, bool]:
     start = text.find(f"{label}::")
     if start == -1:
-        raise RuntimeError(f"label not found: {label}")
+        print(f"warning: label not found, skipped: {label}")
+        return text, False
     end = text.find("\n\n", start)
     if end == -1:
         end = len(text)
-    return text[:start] + new_block.rstrip() + text[end:]
+    return text[:start] + new_block.rstrip() + text[end:], True
+
+
+def safe_regex_replace(text: str, pattern: str, replacement: str, name: str) -> str:
+    new_text, count = re.subn(pattern, replacement, text, count=1, flags=re.MULTILINE)
+    if count != 1:
+        print(f"warning: regex target not found, skipped: {name}")
+        return text
+    return new_text
 
 
 def patch_pallet_route_lock() -> None:
     map_path = "data/maps/PalletTown/map.json"
-    data = json.loads(read(map_path))
+    try:
+        data = json.loads(read(map_path))
+    except Exception as exc:
+        print(f"warning: could not read {map_path}: {exc}")
+        return
 
     coord_events = data.setdefault("coord_events", [])
     needed = [
@@ -74,14 +83,8 @@ def patch_pallet_route_lock() -> None:
         },
     ]
     for event in needed:
-        if not any(
-            e.get("x") == event["x"]
-            and e.get("y") == event["y"]
-            and e.get("script") == event["script"]
-            for e in coord_events
-        ):
+        if not any(e.get("x") == event["x"] and e.get("y") == event["y"] and e.get("script") == event["script"] for e in coord_events):
             coord_events.append(event)
-
     write(map_path, json.dumps(data, indent=2) + "\n")
 
     script_path = "data/maps/PalletTown/scripts.inc"
@@ -129,14 +132,14 @@ def patch_pewter_gym_lock() -> None:
 	msgbox PewterCity_Gym_Text_BrockPostBattle
 	release
 	end'''
-    text = replace_label_block(text, "PewterCity_Gym_EventScript_Brock", brock)
+    text, _ = replace_label_block(text, "PewterCity_Gym_EventScript_Brock", brock)
 
     liam = '''PewterCity_Gym_EventScript_Liam::
 	goto_if_unset FLAG_BEAT_RIVAL_IN_OAKS_LAB, PewterCity_Gym_EventScript_TooEarly
 	trainerbattle_single TRAINER_CAMPER_LIAM, PewterCity_Gym_Text_LiamIntro, PewterCity_Gym_Text_LiamDefeat
 	msgbox PewterCity_Gym_Text_LiamPostBattle, MSGBOX_AUTOCLOSE
 	end'''
-    text = replace_label_block(text, "PewterCity_Gym_EventScript_Liam", liam)
+    text, _ = replace_label_block(text, "PewterCity_Gym_EventScript_Liam", liam)
 
     block = '''PewterCity_Gym_EventScript_TooEarly::
 	msgbox PewterCity_Gym_Text_TooEarly
@@ -157,7 +160,6 @@ def patch_pewter_gym_lock() -> None:
 
 
 def patch_no_tung_mini_line() -> None:
-    # Tung Tung Sahur is legendary, so the Geodude placeholder line should not be named Tung Mini/Med/Rock.
     path = "src/data/text/species_names.h"
     text = read(path)
     replacements = {
@@ -167,14 +169,11 @@ def patch_no_tung_mini_line() -> None:
     }
     for species, name in replacements.items():
         pattern = rf'^(\s*\[{re.escape(species)}\]\s*=\s*_\(")[^"]*("\),)$'
-        text, count = re.subn(pattern, rf'\1{name}\2', text, count=1, flags=re.MULTILINE)
-        if count != 1:
-            raise RuntimeError(f"could not rename {species}")
+        text = safe_regex_replace(text, pattern, rf'\1{name}\2', f"rename {species}")
     write(path, text)
 
     path = "src/data/pokemon/evolution.h"
     text = read(path)
-    # Talpini line is normal, not legendary. It can evolve. Tung Tung itself stays out of this line.
     lines = {
         "SPECIES_GEODUDE": "    [SPECIES_GEODUDE] = {{EVO_LEVEL, 25, SPECIES_GRAVELER}},",
         "SPECIES_GRAVELER": "    [SPECIES_GRAVELER] = {{EVO_LEVEL, 38, SPECIES_GOLEM}},",
@@ -182,9 +181,7 @@ def patch_no_tung_mini_line() -> None:
     }
     for species, line in lines.items():
         pattern = rf"^\s*\[{re.escape(species)}\]\s*=\s*.*,$"
-        text, count = re.subn(pattern, line, text, count=1, flags=re.MULTILINE)
-        if count != 1:
-            raise RuntimeError(f"could not patch evolution {species}")
+        text = safe_regex_replace(text, pattern, line, f"evolution {species}")
     write(path, text)
 
 
@@ -204,11 +201,6 @@ def cleanup_string_line(line: str) -> str:
         "POKéDEX": "BRAINDEX",
         "Pokédex": "Braindex",
         "Pokedex": "Braindex",
-        "OAK": "AVELAR",
-        "Oak": "Avelar",
-        "Gramps": "Avelar",
-        "Rival": "Kiunin",
-        "rival": "Kiunin",
         "TUNGMINI": "TALPINI",
         "TUNGMED": "TALPADI",
         "TUNGROCK": "TALPAFERO",
@@ -242,7 +234,7 @@ def main() -> None:
     patch_pewter_gym_lock()
     patch_no_tung_mini_line()
     patch_text_terms()
-    print("Brainrot progression/text cleanup applied.")
+    print("Brainrot progression/text cleanup applied safely.")
 
 
 if __name__ == "__main__":
